@@ -4,7 +4,7 @@
     <div class="d-flex justify-content-between align-items-center">
         <h1 class="my-5">Users</h1>
         <div>
-            <a href="#" class="btn btn-secondary">
+            <a href="{{ route('dashboard.user.print') }}" class="btn btn-secondary">
                 <i class="fa-solid fa-print"></i>
                 Print PDF
             </a>

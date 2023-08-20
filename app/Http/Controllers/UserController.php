@@ -27,6 +27,20 @@ class UserController extends Controller
         return view('dashboard.user.index', ['active' => 'user', 'users' => $users]);
     }
 
+    public function printAll()
+    {
+        $users = User::all();
+
+        $data = [
+            'date' => date('d/m/Y'),
+            'users' => $users
+        ];
+
+        $pdf = PDF::loadView('dashboard.user.print', $data);
+
+        return $pdf->stream('users.pdf');
+    }
+
     /**
      * Show the form for creating a new resource.
      *

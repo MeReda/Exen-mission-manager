@@ -4,6 +4,7 @@ use App\Http\Controllers\ArchivedMissionController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\MissionController;
+use App\Http\Controllers\PrintAllUsersController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -32,3 +33,4 @@ Route::post('/archive/restore/{id}', [ArchivedMissionController::class, 'restore
 Route::resource('/groups', GroupController::class)->names('dashboard.group');
 
 Route::resource('/users', UserController::class)->names('dashboard.user');
+Route::get('/print-users', [UserController::class, 'printAll'])->name('dashboard.user.print');

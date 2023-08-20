@@ -1,0 +1,44 @@
+body {
+    height: 100vh;
+    overflow: hidden;
+    background-color: #ebeef1;
+}
+
+.sidebar-menu-button {
+    transition: all 0.3s;
+}
+
+.sidebar-menu-button:hover,
+.sidebar-menu-button.active {
+    background-color: #ffffffb3;
+}
+
+.sidebar-menu-button i {
+    color: #009ee0;
+    font-size: 1.3rem;
+}
+
+.sidebar-menu-button a {
+    color: #000;
+    font-size: 1.1rem;
+}
+
+.btn:active,
+.btn:focus,
+.btn:hover {
+    border-color: transparent !important;
+    box-shadow: none !important;
+}
+
+.dashboard-card {
+    box-shadow: 5px 5px 5px -1px #0a63a929, -5px -5px 8px -1px #ffffffb3;
+}
+
+.swal2-confirm.swal2-styled {
+    background-color: #dc3545 !important;
+    border: 1px solid #dc3545 !important;
+}
+
+.swal2-confirm.swal2-styled:focus {
+    box-shadow: none !important;
+}

@@ -1,13 +1,22 @@
 # ToDo:
 
+## Today
+
+1. add input suggestion
+    - it takes it arguments from settings
+    - on approving a mission the argument the data will be added to the settings
+      (example: on approving a mission the place is going to be saved in the settings)
+
+## Some day
+
+1.  Install styles & scripts form cdns
+1.  Cash logo image
+1.  Work on user side app
+1.  Show form error on popup using ajax
+1.  Add authentication
 1.  Make app a PWA
 1.  Add camera to take photos to receipts
 1.  Add wakeLock to the app (maybe only for the admin)
-1.  Show form error on popup using ajax
-1.  Add authentication
-1.  Install styles & scripts form cdns
-1.  Work on user side app
-1.  Cash logo image
 
 <br><hr><hr><hr><br>
 
@@ -46,7 +55,7 @@
 
 1.  Missions `90%`
 
-    -   should add pdf print
+    -   Add to reimbursement request the name of the admin who approved it
 
 <hr>
 

@@ -30,7 +30,7 @@
             <li
                 class="nav-item p-1 px-3 d-flex gap-2 align-items-center rounded sidebar-menu-button {{ $active === 'user' ? 'active' : '' }}">
                 <i class="fa-solid fa-user"></i>
-                <a href="{{ route('dashboard.user.index') }}" class="nav-link text-black w-100">Users</a>
+                <a href="{{ route('dashboard.user.index') }}" class="nav-link text-black w-100">Employees</a>
             </li>
         </ul>
     </div>

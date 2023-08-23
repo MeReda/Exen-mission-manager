@@ -8,14 +8,19 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Print Mission info</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                        onclick="window.print()">Print</button>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                    <a href="{{ route('dashboard.mission.printMission', $mission->id) }}" class="btn btn-secondary">
+                        Print mission details
+                    </a>
+                    @if ($mission->state == 'approved')
+                        <a href="{{ route('dashboard.mission.printReimbursement', $mission->id) }}"
+                            class="btn btn-secondary">
+                            Print reimbursement request
+                        </a>
+                    @endif
                 </div>
             </div>
         </div>
     </div>
 @endforeach
+
+{{-- If state = approved will add button to print reimbursement request --}}

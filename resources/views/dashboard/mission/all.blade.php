@@ -6,7 +6,7 @@
             <th>Place</th>
             <th>Date</th>
             <th>Duration</th>
-            <th>Companion</th>
+            <th>Employee</th>
             <th>Budget</th>
             <th></th>
         </tr>
@@ -23,7 +23,7 @@
                 <td class="p-3">{{ $mission->place }}</td>
                 <td class="p-3">{{ $mission->date }}</td>
                 <td class="p-3">{{ $start_date->diffInDays($end_date) }} days</td>
-                <td class="p-3">{{ $mission->companion }}</td>
+                <td class="p-3">{{ $mission->user->fname }} {{ $mission->user->lname }}</td>
                 <td class="p-3">{{ $mission->budget }} DH</td>
                 <td class="text-center ">
                     <div class="d-flex mx-1">
@@ -63,7 +63,9 @@
                             </button>
                         @elseif ($mission->state == 'approved')
                             {{-- Print Mission state and reimbursement request --}}
-                            <button class="btn btn-sm fs-4"><i class="fa-solid fa-print"></i></button>
+                            <button class="btn btn-sm fs-4" data-bs-toggle="modal"
+                                data-bs-target="#missionPrint{{ $mission->id }}" data-bs-backdrop="static"><i
+                                    class="fa-solid fa-print"></i></button>
 
                             {{-- Done mission (@method('PATCH')) --}}
                             <button class="btn btn-sm fs-4 text-secondary border-0" disabled><i

@@ -6,6 +6,8 @@ use App\Models\Mission;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
+use PDF;
+
 class MissionController extends Controller
 {
     /**
@@ -23,6 +25,40 @@ class MissionController extends Controller
         confirmDelete($title, $text);
 
         return view('dashboard.mission.index', ['missions' => $missions, 'active' => 'mission']);
+    }
+
+    /**
+     * Print mission details
+     */
+    public function printMission($id)
+    {
+        $mission = Mission::find($id);
+
+        $data = [
+            'date' => date('d/m/Y'),
+            'mission' => $mission
+        ];
+
+        $pdf = PDF::loadView('dashboard.mission.printMission', $data);
+
+        return $pdf->stream('mission.pdf');
+    }
+
+    /**
+     * Print reimbursement request
+     */
+    public function printReimbursement($id)
+    {
+        $mission = Mission::find($id);
+
+        $data = [
+            'date' => date('d/m/Y'),
+            'mission' => $mission
+        ];
+
+        $pdf = PDF::loadView('dashboard.mission.printReimbursement', $data);
+
+        return $pdf->stream('reimbursement.pdf');
     }
 
     /**

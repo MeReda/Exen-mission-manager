@@ -14,7 +14,7 @@
                     <p><strong>Members:</strong></p>
                     <ul>
                         @foreach ($group->users as $user)
-                            <li>{{ $user->fname }} {{ $user->lname }} - {{ $user->profile }}</li>
+                            <li>{{ $user->fname }} {{ $user->lname }} - <em>{{ $user->profile }}</em></li>
                         @endforeach
                     </ul>
                 </div>

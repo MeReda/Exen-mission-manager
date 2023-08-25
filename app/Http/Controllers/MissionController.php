@@ -17,7 +17,7 @@ class MissionController extends Controller
      */
     public function index()
     {
-        $missions = Mission::paginate(10);
+        $missions = Mission::orderBy('id', 'desc')->paginate(10);
 
         // Add sweetalert confirmation
         $title = 'Delete Mission';

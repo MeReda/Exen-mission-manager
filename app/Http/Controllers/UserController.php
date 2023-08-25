@@ -17,7 +17,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::paginate(10);
+        // Show users with pagination reversed
+        $users = User::orderBy('id', 'desc')->paginate(10);
 
         // add SweetAlert delete confirmation
         $title = 'Delete User';

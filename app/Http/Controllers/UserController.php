@@ -143,6 +143,26 @@ class UserController extends Controller
     }
 
     /**
+     * Change Password
+     */
+    public function changePassword(Request $request, $id)
+    {
+        // validate the data
+        $request->validate([
+            'passwords' => 'required'
+        ]);
+
+        // store the data
+        $user = User::find($id);
+        $user->password = bcrypt($request->passwords); // I've named passwords because of an unknown error
+        $user->save();
+
+        Alert::toast('Password changed successfully', 'success');
+
+        return redirect()->route('dashboard.user.index');
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id

@@ -72,18 +72,16 @@
                                 value="{{ $mission->user_id }}">
                         </div>
 
-
-
-                        {{-- Show Errors --}}
-
+                        {{-- Show errors --}}
                         @if ($errors->any())
-                            <div class="alert alert-danger mt-3">
-                                <ul class="m-0">
-                                    @foreach ($errors->all() as $error)
-                                        <li class="m-0">{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
+                            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+                            <script>
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    text: '{{ $errors->first() }}'
+                                });
+                            </script>
                         @endif
                     </div>
                     <div class="modal-footer">

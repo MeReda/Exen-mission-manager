@@ -51,19 +51,85 @@
 
                         {{-- Show errors --}}
                         @if ($errors->any())
-                            <div class="alert alert-danger mt-3">
-                                <ul class="m-0">
-                                    @foreach ($errors->all() as $error)
-                                        <li class="m-0">{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
+                            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+                            <script>
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    text: '{{ $errors->first() }}'
+                                });
+                            </script>
                         @endif
                     </div>
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-success">Edit</button>
+                        <button type="button" class="btn btn-danger"
+                            data-bs-target="#resetPasswordModal{{ $user->id }}" data-bs-toggle="modal">Reset
+                            Password</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {{-- Add second modal to reset password --}}
+    <div class="modal fade" id="resetPasswordModal{{ $user->id }}" tabindex="-1"
+        aria-labelledby="resetPasswordModalLabel{{ $user->id }}" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="resetPasswordModalLabel{{ $user->id }}">{{ $user->email }}
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <form action="{{ route('dashboard.user.changePassword', $user->id) }}" method="POST">
+                    @csrf
+                    @method('PATCH')
+                    <div class="modal-body">
+                        <h3>Reset Password</h3>
+                        <label>New Password:</label>
+                        <input type="text" class="form-control" name="passwords" required>
+
+                        <label>Confirm Password:</label>
+                        <input type="text" class="form-control" name="password_confirmation" required>
+
+                        <span class="text-danger mt-3" id="password-match"></span>
+
+                        <script>
+                            document.addEventListener("DOMContentLoaded", function() {
+                                function checkPasswordMatch() {
+                                    var password = document.getElementsByName("passwords")[0].value;
+                                    var confirmPassword = document.getElementsByName("password_confirmation")[0].value;
+                                    var errorElement = document.getElementById("password-match");
+
+                                    if (password == confirmPassword) {
+                                        errorElement.innerHTML = "";
+                                    } else {
+                                        errorElement.innerHTML = "Passwords do not match";
+                                    }
+                                }
+                                document.getElementsByName("password_confirmation")[0].addEventListener("input", checkPasswordMatch);
+                            });
+                        </script>
+
+                        {{-- Show errors --}}
+                        @if ($errors->any())
+                            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+                            <script>
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    text: '{{ $errors->first() }}'
+                                });
+                            </script>
+                        @endif
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-danger">Reset Password</button>
                     </div>
                 </form>
             </div>

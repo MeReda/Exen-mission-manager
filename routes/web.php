@@ -36,3 +36,4 @@ Route::resource('/groups', GroupController::class)->names('dashboard.group');
 
 Route::resource('/users', UserController::class)->names('dashboard.user');
 Route::get('/print-users', [UserController::class, 'printAll'])->name('dashboard.user.print');
+Route::patch('/users/change-password/{id}', [UserController::class, 'changePassword'])->name('dashboard.user.changePassword');

@@ -1,12 +1,5 @@
 # ToDo:
 
-## Today
-
-1. add input suggestion
-    - it takes it arguments from settings
-    - on approving a mission the argument the data will be added to the settings
-      (example: on approving a mission the place is going to be saved in the settings)
-
 ## Some day
 
 1.  Install styles & scripts form cdns
@@ -49,7 +42,6 @@
 1.  Users `99%`
 
     -   if you can add feature to reset user password
-    -   if you can add pdf all users button
 
 <hr>
 
@@ -63,5 +55,4 @@
 
     -   should add database design
     -   should create page
-    -   should add inputs recommendations library
     -   you can add admin reset password

@@ -48,8 +48,8 @@
                             <div class="col-2"><strong>Total: </strong></div>
 
                             <div class="col-2"><input type="number" class="form-control" name="total_reimbursement"
-                                    value="{{ $total + ($mission->user->group->percentage / 100) * $total }}"
-                                    required></div>
+                                    value="{{ $total + ($mission->user->group->percentage / 100) * $total }}" required>
+                            </div>
                             <div class="col-1">DH</div>
                         </div>
 
@@ -62,20 +62,16 @@
                             </div>
                         </div>
 
-                        {{-- Show Errors --}}
+                        {{-- Show errors --}}
                         @if ($errors->any())
-                            <div class="row mt-5">
-                                <div class="col">
-                                    <div class="alert alert-danger" role="alert">
-                                        <ul class="m-0">
-                                            @foreach ($errors->all() as $error)
-                                                <li>{{ $error }}</li>
-                                            @endforeach
-                                        </ul>
-
-                                    </div>
-                                </div>
-                            </div>
+                            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+                            <script>
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    text: '{{ $errors->first() }}'
+                                });
+                            </script>
                         @endif
                     </div>
                     <div class="modal-footer">

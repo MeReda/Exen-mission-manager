@@ -39,9 +39,7 @@
 
 <hr>
 
-1.  Users `99%`
-
-    -   if you can add feature to reset user password
+1.  Users `100%`
 
 <hr>
 
@@ -53,6 +51,5 @@
 
 1.  Settings `0%`
 
-    -   should add database design
     -   should create page
     -   you can add admin reset password

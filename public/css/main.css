@@ -42,3 +42,11 @@ body {
 .swal2-confirm.swal2-styled:focus {
     box-shadow: none !important;
 }
+
+/* add w-lg-10 like bootstrap */
+
+@media (min-width: 992px) {
+    .w-lg-10 {
+        width: 10% !important;
+    }
+}

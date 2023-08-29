@@ -40,6 +40,8 @@
     @if ($mission->comment)
         <p><strong>Comment: </strong> {{ $mission->comment }} </p>
     @endif
+
+    <p class="mt-5"><strong>Signature:</strong> {{ $admin->fname }} {{ $admin->lname }}</p>
 </body>
 
 </html>

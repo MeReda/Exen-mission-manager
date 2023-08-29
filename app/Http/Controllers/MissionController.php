@@ -56,9 +56,13 @@ class MissionController extends Controller
     {
         $mission = Mission::find($id);
 
+        // Get logged in user
+        $admin = auth()->user();
+
         $data = [
             'date' => date('d/m/Y'),
-            'mission' => $mission
+            'mission' => $mission,
+            'admin' => $admin
         ];
 
         $pdf = PDF::loadView('dashboard.mission.printReimbursement', $data);

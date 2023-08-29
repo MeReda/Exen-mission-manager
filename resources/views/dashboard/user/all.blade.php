@@ -20,7 +20,14 @@
                 <td class="p-3">{{ $user->email }}</td>
                 <td class="p-3">{{ $user->missions->count() }}</td>
                 <td class="p-3">{{ $user->profile }}</td>
-                <td class="p-3">{{ $user->group->name }}</td>
+
+                {{-- show group if exists --}}
+                @if ($user->group)
+                    <td class="p-3">{{ $user->group->name }}</td>
+                @else
+                    <td class="p-3">No group</td>
+                @endif
+
                 <td class="d-flex">
                     {{-- User detail button --}}
                     <button class="btn btn-sm fs-4 text-info" data-bs-toggle="modal"

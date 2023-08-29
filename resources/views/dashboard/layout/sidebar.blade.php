@@ -44,8 +44,14 @@
             </button>
             <ul class="dropdown-menu dropdown-menu-end">
                 <li><button class="dropdown-item" type="button">Account</button></li>
-                <li><button class="dropdown-item" type="button">Settings</button></li> {{-- to change params --}}
-                <li><button class="dropdown-item" type="button">LogOut</button></li>
+                <li>
+                    <a class="dropdown-item" href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
+                        document.getElementById('logout-form').submit();">Logout</a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+                </li>
             </ul>
         </div>
     </div>

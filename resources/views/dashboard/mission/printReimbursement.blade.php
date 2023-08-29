@@ -30,7 +30,7 @@
                 <tr>
                     <td>{{ $expense->category }}</td>
                     <td>{{ $expense->description }}</td>
-                    <td>{{ $expense->amount }} DH</td>
+                    <td>{{ $expense->amount }}&nbsp;DH</td> {{-- I've used the &nbsp to add space to the amount because when I add it using ' ' the DH backs to the line --}}
                 </tr>
             @endforeach
         </tbody>

@@ -73,4 +73,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(Mission::class);
     }
+
+    /**
+     * Check if the user is an admin
+     */
+    public function isAdmin()
+    {
+        return $this->type == 'admin';
+    }
 }

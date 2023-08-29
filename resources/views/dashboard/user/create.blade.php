@@ -24,6 +24,8 @@
                     </div>
                     <div class="form-group">
                         <label for="name">E-mail:</label>
+                        {{-- disable auto complete --}}
+
                         <input type="email" class="form-control" name="email" required>
                     </div>
                     <div class="form-group">
@@ -36,7 +38,12 @@
                     </div>
                     <div class="form-group">
                         <label for="name">Group Id:</label>
-                        <input type="number" class="form-control" name="group_id" required>
+                        <select name="group_id" class="form-control" required>
+                            <option value="" selected disabled>Select Group Id</option>
+                            @foreach ($groups as $group)
+                                <option value="{{ $group->id }}">{{ $group->id }} - {{ $group->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
 
                     {{-- Show errors --}}

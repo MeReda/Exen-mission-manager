@@ -17,12 +17,15 @@ class ArchivedMissionController extends Controller
     {
         $archive = Mission::onlyTrashed()->paginate(10);
 
+        // Get logged in user
+        $admin = auth()->user();
+
         // sweetalert conformation
         $title = 'Delete Mission!';
         $text = "Are you sure you want to delete?";
         confirmDelete($title, $text);
 
-        return view('dashboard.archive', ['active' => 'archive', 'archive' => $archive]);
+        return view('dashboard.archive', ['active' => 'archive', 'admin' => $admin,  'archive' => $archive]);
     }
 
     public function restore($id)

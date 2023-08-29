@@ -17,12 +17,15 @@ class GroupController extends Controller
     {
         $groups = Group::paginate(10);
 
+        // Get logged in user
+        $admin = auth()->user();
+
         // sweetalert confirmation
         $title = 'Delete Group!';
         $text = 'Are you sure you want to delete this group?';
         confirmDelete($title, $text);
 
-        return view('dashboard.group.index', ['active' => 'group', 'groups' => $groups]);
+        return view('dashboard.group.index', ['active' => 'group', 'admin' => $admin,  'groups' => $groups]);
     }
 
     /**

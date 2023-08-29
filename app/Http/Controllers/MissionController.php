@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Mission;
+use App\Models\User;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -18,13 +19,17 @@ class MissionController extends Controller
     public function index()
     {
         $missions = Mission::orderBy('id', 'desc')->paginate(10);
+        $users = User::all();
+
+        // Get logged in user
+        $admin = auth()->user();
 
         // Add sweetalert confirmation
         $title = 'Delete Mission';
         $text = 'Are you sure you want to delete this mission?';
         confirmDelete($title, $text);
 
-        return view('dashboard.mission.index', ['missions' => $missions, 'active' => 'mission']);
+        return view('dashboard.mission.index', ['missions' => $missions, 'users' => $users, 'admin' => $admin,  'active' => 'mission']);
     }
 
     /**
@@ -79,7 +84,45 @@ class MissionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validate the data
+        $request->validate([
+            'name' => 'required',
+            'object' => 'required',
+            'description' => 'required',
+            'place' => 'required',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after:start_date', // Ensure end_date is after start_date
+            'date' => [
+                'required',
+                'date',
+                function ($attribute, $value, $fail) use ($request) {
+                    if ($value < $request->start_date || $value > $request->end_date) {
+                        $fail("The date must be between start date and end date.");
+                    }
+                },
+            ],
+            'companion' => 'required',
+            'budget' => 'required|numeric',
+            'user_id' => 'required|exists:users,id',
+        ]);
+
+        // Store the data
+        $mission = new Mission;
+        $mission->name = $request->name;
+        $mission->object = $request->object;
+        $mission->description = $request->description;
+        $mission->place = $request->place;
+        $mission->start_date = $request->start_date;
+        $mission->end_date = $request->end_date;
+        $mission->date = $request->date;
+        $mission->companion = $request->companion;
+        $mission->budget = $request->budget;
+        $mission->user_id = $request->user_id;
+        $mission->save();
+
+        Alert::toast('Mission created successfully', 'success');
+
+        return redirect()->route('dashboard.mission.index');
     }
 
     /**

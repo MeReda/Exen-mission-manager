@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Group;
 use App\Models\User;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -20,12 +21,17 @@ class UserController extends Controller
         // Show users with pagination reversed
         $users = User::orderBy('id', 'desc')->paginate(10);
 
+        $groups = Group::all();
+
+        // Get logged in user
+        $admin = auth()->user();
+
         // add SweetAlert delete confirmation
         $title = 'Delete User';
         $text = 'Are you sure you want to delete this user?';
         confirmDelete($title, $text);
 
-        return view('dashboard.user.index', ['active' => 'user', 'users' => $users]);
+        return view('dashboard.user.index', ['active' => 'user', 'groups' => $groups, 'users' => $users, 'admin' => $admin]);
     }
 
     public function printAll()
@@ -122,20 +128,24 @@ class UserController extends Controller
         $request->validate([
             'fname' => 'required',
             'lname' => 'required',
-            'CIN' => 'required|unique:users,CIN,' . $id,
+            'CIN' => 'unique:users,CIN,' . $id,
             'email' => 'required|email|unique:users,email,' . $id,
-            'profile' => 'required',
-            'group_id' => 'required|exists:groups,id'
         ]);
 
-        // store the data
+        // store the data if putted
         $user = User::find($id);
         $user->fname = $request->fname;
         $user->lname = $request->lname;
-        $user->CIN = $request->CIN;
+        if (isset($request->CIN)) {
+            $user->CIN = $request->CIN;
+        }
         $user->email = $request->email;
-        $user->profile = $request->profile;
-        $user->group_id = $request->group_id;
+        if (isset($request->profile)) {
+            $user->profile = $request->profile;
+        }
+        if (isset($request->group_id)) {
+            $user->group_id = $request->group_id;
+        }
         $user->save();
 
         Alert::toast('User updated successfully', 'success');
@@ -150,7 +160,7 @@ class UserController extends Controller
     {
         // validate the data
         $request->validate([
-            'passwords' => 'required'
+            'password' => 'required|min:8',
         ]);
 
         // store the data

@@ -68,8 +68,13 @@
 
                         <div class="form-user">
                             <label for="name">User ID:</label>
-                            <input type="text" class="form-control" name="user_id" required
-                                value="{{ $mission->user_id }}">
+                            <select name="user_id" class="form-control" required>
+                                <option value="" selected disabled>Select User ID</option>
+                                @foreach ($users as $user)
+                                    <option value="{{ $user->id }}">{{ $user->id }} - {{ $user->lname }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
 
                         {{-- Show errors --}}

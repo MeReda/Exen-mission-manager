@@ -29,14 +29,12 @@
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
 </head>
 
-<body>
+<body class="overflow-auto">
     {{-- navbar --}}
-    <nav class="navbar bg-body-tertiary">
-    </nav>
 
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-md">
-            <a class="navbar-brand w-25 w-lg-10" href="#">
+            <a class="navbar-brand w-25 w-lg-10" href="{{ route('client.index') }}">
                 <img class="img-fluid" src="{{ asset('images/transparetn-logo.png') }}" alt="logo">
             </a>
 
@@ -64,7 +62,7 @@
         </div>
     </nav>
 
-    @yield('clientContent')
+    <div class="container-md pb-5">@yield('content')</div>
 </body>
 
 </html>

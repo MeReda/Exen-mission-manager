@@ -22,8 +22,9 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::middleware(['auth', 'CheckUser'])->group(function () {
-    // client routes
     Route::get('/', [clientController::class, 'index'])->name('client.index');
+    Route::get('/mission/{id}', [clientController::class, 'show'])->name('client.show');
+    Route::post('/expense', [clientController::class, 'storeExpense'])->name('client.storeExpense');
 });
 
 Auth::routes();

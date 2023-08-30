@@ -43,7 +43,14 @@ body {
     box-shadow: none !important;
 }
 
-/* add w-lg-10 like bootstrap */
+.mission-card {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    background-color: white;
+    color: #000;
+    text-decoration: none;
+}
 
 @media (min-width: 992px) {
     .w-lg-10 {

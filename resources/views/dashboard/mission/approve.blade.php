@@ -26,7 +26,10 @@
                                     <div class="col-4">{{ $expense->category }}</div>
                                     <div class="col-4">{{ $expense->amount }} DH</div>
                                     <div class="col-4">
-                                        <img class="img-fluid" src="{{ $expense->receipt_image }}" alt="receipt image">
+                                        <a href="{{ asset($expense->receipt_image) }}" target="_blank">
+                                            <img src="{{ asset($expense->receipt_image) }}" alt="Receipt"
+                                                width="100px">
+                                        </a>
                                     </div>
                                 </div>
                                 @php

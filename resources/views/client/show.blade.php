@@ -43,9 +43,15 @@
             </thead>
             <tbody>
                 @forelse ($mission->expenses as $expense)
-                    <tr class="d-flex justify-content-between">
-                        <td>{{ $expense->name }}</td>
+                    <tr>
+                        <td>{{ $expense->category }}</td>
                         <td>{{ $expense->amount }} DH</td>
+                        <td>{{ $expense->description }}</td>
+                        <td>
+                            <a href="{{ asset($expense->receipt_image) }}" target="_blank">
+                                <img src="{{ asset($expense->receipt_image) }}" alt="Receipt" width="100px">
+                            </a>
+                        </td>
                     </tr>
                 @empty
                     <tr>
@@ -63,12 +69,12 @@
                     <h1 class="modal-title fs-5" id="addExpenseModalLabel">Add Expense</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="{{ route('client.storeExpense') }}" method="post">
+                <form action="{{ route('client.storeExpense') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label for="name" class="form-label">Category</label>
-                            <input type="text" class="form-control" id="name" name="name" required>
+                            <label for="category" class="form-label">Category</label>
+                            <input type="text" class="form-control" id="name" name="category" required>
                         </div>
                         <div class="mb-3">
                             <label for="amount" class="form-label">Amount</label>

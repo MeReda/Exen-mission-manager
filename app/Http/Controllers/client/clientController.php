@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\client;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Console\View\Components\Alert;
+use App\Models\Expense;
+use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 
 class clientController extends Controller
 {
@@ -29,23 +32,37 @@ class clientController extends Controller
         // validate request
         $this->validate(request(), [
             'mission_id' => 'required|integer',
+            'category' => 'required|string',
             'amount' => 'required|integer',
             'description' => 'required|string',
-            'receipt' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'receipt' => 'nullable|mimes:jpeg,png,jpg,gif,svg',
         ]);
 
         // get mission by id
-        $mission = auth()->user()->missions()->findOrFail(request('mission_id'));
+        $mission = auth()->user()->missions()->findOrFail($request->mission_id);
+
+        // prepare receipt image
+        $receiptName = date('Y-m-d') . '.' . $request->receipt->extension();
+        $receipt = Image::make($request->receipt);
+        $receipt->stream();
+
+        // store in storage
+        Storage::disk('images')->put('receipts/' . $receiptName, $receipt);
 
         // create expense
-        $mission->expenses()->create([
-            'amount' => request('amount'),
-            'description' => request('description'),
-            'receipt' => request('receipt') ? request('receipt')->store('receipts', 'public') : null,
+        $expense = Expense::create([
+            'mission_id' => $mission->id,
+            'category' => $request->category,
+            'amount' => $request->amount,
+            'description' => $request->description,
+            'receipt_image' => 'receipts/' . $receiptName,
         ]);
 
+        $expense->save();
+
+
         // show success alert
-        Alert::toast('Expense deleted successfully', 'success');
+        Alert::toast('Expense created successfully', 'success');
 
         // redirect to mission
         return redirect()->route('client.show', ['id' => $mission->id]);

@@ -45,8 +45,15 @@
 
                         <div class="form-user">
                             <label for="name">Group ID:</label>
-                            <input type="number" class="form-control" name="group_id" required
-                                value="{{ $user->group_id }}">
+
+                            <select name="group_id" class="form-control" required>
+                                <option value="" selected disabled>Select Group ID</option>
+                                @foreach ($groups as $group)
+                                    <option value="{{ $group->id }}"
+                                        @if ($user->group_id == $group->id) selected @endif>
+                                        {{ $group->id }} - {{ $group->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
 
                         {{-- Show errors --}}
@@ -91,10 +98,10 @@
                     <div class="modal-body">
                         <h3>Reset Password</h3>
                         <label>New Password:</label>
-                        <input type="text" class="form-control" name="passwords" required>
+                        <input type="password" class="form-control" name="passwords" required>
 
                         <label>Confirm Password:</label>
-                        <input type="text" class="form-control" name="password_confirmation" required>
+                        <input type="password" class="form-control" name="password_confirmation" required>
 
                         <span class="text-danger mt-3" id="password-match"></span>
 

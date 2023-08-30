@@ -14,7 +14,13 @@
                     <p><strong>CIN:</strong> {{ $user->CIN }}</p>
                     <p><strong>E-mail:</strong> {{ $user->email }}</p>
                     <p><strong>Profile:</strong> {{ $user->profile }}</p>
-                    <p><strong>Group:</strong> {{ $user->group->name }}</p>
+                    <p><strong>Group:</strong>
+                        @if ($user->group)
+                            {{ $user->group->name }}
+                        @else
+                            No group
+                        @endif
+                    </p>
                     <p><strong>missions:</strong>
                     <ul>
                         @foreach ($user->missions as $mission)

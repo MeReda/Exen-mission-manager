@@ -37,16 +37,27 @@
 
     {{-- Account & logout --}}
     <div class="text-black w-100 d-flex justify-content-between align-items-center mb-3 p-3 rounded bg-white">
-        <a href="#" class="w-100 text-black text-decoration-none">User Name</a>
+        <a href="#" class="w-100 text-black text-decoration-none">{{ $admin->fname }} {{ $admin->lname }}</a>
         <div class="btn-group">
             <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="fa-solid fa-gear"></i>
             </button>
             <ul class="dropdown-menu dropdown-menu-end">
-                <li><button class="dropdown-item" type="button">Account</button></li>
-                <li><button class="dropdown-item" type="button">Settings</button></li> {{-- to change params --}}
-                <li><button class="dropdown-item" type="button">LogOut</button></li>
+                <li><button class="dropdown-item" type="button" data-bs-toggle="modal"
+                        data-bs-target="#accountSettingsModal">Account</button></li>
+                <li>
+                    <a class="dropdown-item" href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
+                        document.getElementById('logout-form').submit();">Logout</a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+                </li>
             </ul>
         </div>
     </div>
 </div>
+
+{{-- Account Settings Modal --}}
+
+@include('dashboard.settings')

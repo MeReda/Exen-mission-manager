@@ -42,3 +42,18 @@ body {
 .swal2-confirm.swal2-styled:focus {
     box-shadow: none !important;
 }
+
+.mission-card {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    background-color: white;
+    color: #000;
+    text-decoration: none;
+}
+
+@media (min-width: 992px) {
+    .w-lg-10 {
+        width: 10% !important;
+    }
+}

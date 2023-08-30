@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Laravel\Fortify\Fortify;
 
 return new class extends Migration
 {
@@ -21,6 +22,7 @@ return new class extends Migration
             $table->rememberToken()->nullable();
             $table->foreignId('group_id')->nullable();
             $table->string('profile')->nullable();
+            $table->enum('type', ['admin', 'user'])->default('user');
             $table->timestamps();
         });
     }

@@ -26,20 +26,36 @@
             </tr>
         </thead>
         <tbody>
+            @php
+                $totalExpenses = 0;
+            @endphp
             @foreach ($mission->expenses as $expense)
                 <tr>
                     <td>{{ $expense->category }}</td>
                     <td>{{ $expense->description }}</td>
-                    <td>{{ $expense->amount }} DH</td>
+                    <td>{{ $expense->amount }}&nbsp;DH</td>
                 </tr>
+                @php
+                    $totalExpenses += $expense->amount;
+                @endphp
             @endforeach
         </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="2"><strong>Total:</strong></td>
+                <td>{{ $totalExpenses }} DH</td>
+            </tr>
+        </tfoot>
     </table>
 
-    <p><strong>Total: </strong>{{ $mission->total_reimbursement }} DH</p>
+    <p><strong>Group bonus: </strong>{{ $mission->user->group->percentage }} %</p>
+    <p><strong>Final Total: </strong>{{ $mission->total_reimbursement }} DH</p>
     @if ($mission->comment)
         <p><strong>Comment: </strong> {{ $mission->comment }} </p>
     @endif
+
+    <p class="mt-5"><strong>Signature:</strong> {{ $admin->fname }} {{ $admin->lname }}</p>
+
 </body>
 
 </html>

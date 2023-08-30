@@ -18,11 +18,16 @@ class DashboardController extends Controller
         $missions = Mission::count();
         $deleted_missions = Mission::onlyTrashed()->count();
 
+        // Get logged in user
+        $admin = auth()->user();
+
         return view('dashboard.index', [
             'groups' => $groups,
             'users' => $users,
             'missions' => $missions,
             'deleted_missions' => $deleted_missions,
-            'active' => 'dashboard']);
+            'admin' => $admin,
+            'active' => 'dashboard'
+        ]);
     }
 }

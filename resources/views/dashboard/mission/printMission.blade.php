@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>User Pdf</title>
+    <title>Mission Info</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 </head>
@@ -14,19 +14,19 @@
     <p>{{ $date }}</p>
 
     <p><strong>Name:</strong> {{ $mission->name }}</p>
-    <p>Object: {{ $mission->object }}</p>
-    <p>Employee: null</p>
-    <p>Description: {{ $mission->description }}</p>
-    <p>Place: {{ $mission->place }}</p>
+    <p><strong>Object:</strong> {{ $mission->object }}</p>
+    <p><strong>Employee:</strong> {{ $mission->user->fname }} {{ $mission->user->lname }}</p>
+    <p><strong>Description:</strong> {{ $mission->description }}</p>
+    <p><strong>Place:</strong> {{ $mission->place }}</p>
     <div class="row">
         <div class="col-4">
-            <p>Date: {{ $mission->date }}</p>
+            <p><strong>Date:</strong> {{ $mission->date }}</p>
         </div>
         <div class="col-4">
-            <p>Start date: {{ $mission->start_date }}</p>
+            <p><strong>Start date:</strong> {{ $mission->start_date }}</p>
         </div>
         <div class="col-4">
-            <p>End date: {{ $mission->end_date }}</p>
+            <p><strong>End date:</strong> {{ $mission->end_date }}</p>
         </div>
     </div>
 </body>

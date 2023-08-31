@@ -56,8 +56,15 @@
 
                         <div class="form-user">
                             <label for="name">Companion:</label>
-                            <input type="text" class="form-control" name="companion" required
-                                value="{{ $mission->companion }}">
+                            <select name="companion" class="form-select" required>
+                                <option value="" selected disabled>Select User ID</option>
+                                @foreach ($users as $user)
+                                    <option value="{{ $user->fname }} {{ $user->lname }}"
+                                        {{ $user->fname . ' ' . $user->lname == $mission->companion ? 'selected' : '' }}>
+                                        {{ $user->fname }} {{ $user->lname }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
 
                         <div class="form-user">
@@ -68,10 +75,12 @@
 
                         <div class="form-user">
                             <label for="name">User ID:</label>
-                            <select name="user_id" class="form-control" required>
+                            <select name="user_id" class="form-select" required>
                                 <option value="" selected disabled>Select User ID</option>
                                 @foreach ($users as $user)
-                                    <option value="{{ $user->id }}">{{ $user->id }} - {{ $user->lname }}
+                                    <option value="{{ $user->id }}"
+                                        {{ $user->id == $mission->user->id ? 'selected' : '' }}>
+                                        {{ $user->fname }} {{ $user->lname }}
                                     </option>
                                 @endforeach
                             </select>

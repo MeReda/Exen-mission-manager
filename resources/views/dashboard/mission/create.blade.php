@@ -11,19 +11,21 @@
                 <div class="modal-body  modal-dialog-scrollable">
                     <div class="form-group">
                         <label for="name">Name:</label>
-                        <input type="text" class="form-control" name="name" required autofocus='true'>
+                        <input type="text" class="form-control" name="name" required autofocus='true'
+                            placeholder="Mission Name">
                     </div>
                     <div class="form-group">
                         <label for="name">Object:</label>
-                        <input type="text" class="form-control" name="object" required>
+                        <input type="text" class="form-control" name="object" required placeholder="Mission Object">
                     </div>
                     <div class="form-group">
                         <label for="name">Description:</label>
-                        <input type="text" class="form-control" name="description" required>
+                        <input type="text" class="form-control" name="description" required
+                            placeholder="Mission Description">
                     </div>
                     <div class="form-group">
                         <label for="name">Place:</label>
-                        <input type="text" class="form-control" name="place" required>
+                        <input type="text" class="form-control" name="place" required placeholder="Mission Place">
                     </div>
 
                     <div class="form-group">
@@ -42,18 +44,26 @@
                     </div>
                     <div class="form-group">
                         <label for="name">Companion:</label>
-                        <input type="text" class="form-control" name="companion" required>
+                        <select name="companion" class="form-select" required>
+                            <option value="" selected disabled>Select User</option>
+                            @foreach ($users as $user)
+                                <option value="{{ $user->fname }} {{ $user->lname }}">
+                                    {{ $user->fname }} {{ $user->lname }}
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="name">Budget:</label>
-                        <input type="text" class="form-control" name="budget" required>
+                        <input type="text" class="form-control" name="budget" required
+                            placeholder="Mission Fixed Budget">
                     </div>
                     <div class="form-group">
-                        <label for="name">User ID:</label>
-                        <select name="user_id" class="form-control" required>
-                            <option value="" selected disabled>Select User ID</option>
+                        <label for="name">User:</label>
+                        <select name="user_id" class="form-select" required>
+                            <option value="" selected disabled>Select User</option>
                             @foreach ($users as $user)
-                                <option value="{{ $user->id }}">{{ $user->id }} - {{ $user->lname }}</option>
+                                <option value="{{ $user->id }}">{{ $user->fname }} {{ $user->lname }}</option>
                             @endforeach
                         </select>
                     </div>

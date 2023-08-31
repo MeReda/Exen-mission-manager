@@ -5,14 +5,33 @@
 1. Install styles & scripts form cdns
 1. Cash logo image
 1. Make app a PWA
-1. Add camera to take photos to receipts
-1. Add wakeLock to the app (maybe only for the admin)
 
-<br>
-<hr>
-<hr>
-<hr>
-<br>
+## Today
+
+1. `Admin`:
+
+    - in add mission you can show the user full name instead of 'id-lname' 💯
+
+    - companion should be taken from the employees 💯
+
+    - add link from user through mission
+
+    - add to mission reimbursement state
+
+        - if reimbursement state is 'paid' the employee can't print reimbursement state
+
+        - if ~~ state is 'unpaid' the employee can print reimbursement
+
+    - the total reimbursement will be calculated by two ways:
+
+        - from expenses that should be approved
+
+        - per day from group daily price
+
+    - when the mission is created the admin can print the first document called 'mission order'
+
+1. `User`:
+    - the user can make a mission request
 
 ## Done
 

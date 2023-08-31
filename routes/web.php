@@ -25,6 +25,9 @@ Route::middleware(['auth', 'CheckUser'])->group(function () {
     Route::get('/', [clientController::class, 'index'])->name('client.index');
     Route::get('/mission/{id}', [clientController::class, 'show'])->name('client.show');
     Route::post('/expense', [clientController::class, 'storeExpense'])->name('client.storeExpense');
+    Route::get('/settings', [clientController::class, 'settings'])->name('client.settings');
+    Route::put('/settings', [clientController::class, 'updateInfo'])->name('client.updateInfo');
+    Route::put('/settings/password', [clientController::class, 'updatePassword'])->name('client.updatePassword');
 });
 
 Auth::routes();

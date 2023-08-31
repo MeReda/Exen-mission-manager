@@ -50,6 +50,13 @@ body {
     background-color: white;
     color: #000;
     text-decoration: none;
+    box-shadow: 5px 5px 5px -1px #0a63a90f, -5px -5px 8px -1px #ffffff;
+    border-radius: 10px;
+    transition: all 0.3s;
+}
+
+.mission-card:hover {
+    box-shadow: 5px 5px 5px -1px #0a63a929, -5px -5px 8px -1px #ffffffb3;
 }
 
 @media (min-width: 992px) {

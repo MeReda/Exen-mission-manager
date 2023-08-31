@@ -9,6 +9,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
+use Illuminate\Support\Str;
 
 class clientController extends Controller
 {
@@ -43,7 +44,7 @@ class clientController extends Controller
         $mission = auth()->user()->missions()->findOrFail($request->mission_id);
 
         // prepare receipt image
-        $receiptName = date('Y-m-d') . '.' . $request->receipt->extension();
+        $receiptName = date('Y-m-d') . '-' . Str::uuid() . '.' . $request->receipt->extension();
         $receipt = Image::make($request->receipt);
         $receipt->stream();
 
@@ -129,5 +130,20 @@ class clientController extends Controller
 
         // redirect to settings
         return redirect()->route('client.settings');
+    }
+
+    public function destroyExpense($id)
+    {
+        // get expense by id
+        $expense = Expense::findOrFail($id);
+
+        // delete expense
+        $expense->delete();
+
+        // show success alert
+        Alert::toast('Expense deleted successfully', 'success');
+
+        // redirect to mission
+        return redirect()->route('client.show', ['id' => $expense->mission->id]);
     }
 }

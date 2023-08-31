@@ -28,6 +28,7 @@ Route::middleware(['auth', 'CheckUser'])->group(function () {
     Route::get('/settings', [clientController::class, 'settings'])->name('client.settings');
     Route::put('/settings', [clientController::class, 'updateInfo'])->name('client.updateInfo');
     Route::put('/settings/password', [clientController::class, 'updatePassword'])->name('client.updatePassword');
+    Route::delete('/expense/{id}', [clientController::class, 'destroyExpense'])->name('client.destroyExpense');
 });
 
 Auth::routes();

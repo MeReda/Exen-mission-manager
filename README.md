@@ -42,9 +42,10 @@
 
 1. Settings `100%`
 
-1. Client Side `20%`
+1. Client Side `80%`
 
-    - add missions to the index page
-    - add mission info
-    - add 'add expenses' to mission info with receipt image
+    - add other curd expenses
+    - make expenses looks good in mobile
     - add account info with change password
+
+1. Transform App to PWA `0%`

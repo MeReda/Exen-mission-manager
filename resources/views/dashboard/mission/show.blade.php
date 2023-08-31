@@ -22,9 +22,89 @@
                     <p><strong>Budget:</strong> {{ $mission->budget }} DH</p>
                     <p><strong>State:</strong> {{ $mission->state }}</p>
                     <p><strong>Total Reimbursement:</strong> {{ $mission->total_reimbursement }} DH</p>
-                    <p><strong>Comment:</strong> {{ $mission->comment }}</p>
+                    <p><strong>Comment: </strong>
+                        @if ($mission->comment != null)
+                            {{ $mission->comment }}
+                        @else
+                            No comment
+                        @endif
+                    </p>
+                    <p>
+                        <strong>Expenses: </strong>
+                        <button type="button" class="btn btn-sm btn-info text-white ms-2" data-bs-toggle="modal"
+                            data-bs-target="#missionExpensesModal">
+                            Show Expenses
+                        </button>
+                    </p>
 
                 </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- Mission Expenses Modal --}}
+    <div class="modal fade" id="missionExpensesModal" tabindex="-1" aria-labelledby="missionExpensesModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="missionExpensesModalLabel">Mission Expenses</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-4 fw-bold">Category</div>
+                        <div class="col-4 fw-bold">Amount</div>
+                        <div class="col-4 fw-bold">Receipt</div>
+                    </div>
+                    @php
+                        $total = 0;
+                    @endphp
+                    @foreach ($mission->expenses as $expense)
+                        <div class="row mt-3">
+                            <div class="col-4">{{ $expense->category }}</div>
+                            <div class="col-4">{{ $expense->amount }} DH</div>
+                            <div class="col-4">
+                                <a href="{{ asset($expense->receipt_image) }}" target="_blank">
+                                    <img src="{{ asset($expense->receipt_image) }}" alt="Receipt" width="100px">
+                                </a>
+                            </div>
+                        </div>
+                        @php
+                            $total += $expense->amount;
+                        @endphp
+                    @endforeach
+
+                    {{-- Show Expenses Total --}}
+                    <div class="row mt-5 align-items-center">
+                        <div class="col-4"><strong>Total: </strong></div>
+
+                        <div class="col">{{ $total }} DH</div>
+                    </div>
+
+                    {{-- Show group percentage --}}
+                    <div class="row mt-5 align-items-center">
+                        <div class="col-4"><strong>Group percentage: </strong></div>
+                        <div class="col">{{ $mission->user->group->percentage }} %</div>
+                    </div>
+
+                    {{-- Show Expenses Comment --}}
+                    <div class="row mt-5 align-items-center">
+                        <div class="col-4"><strong>Comment:</strong></div>
+                        <div class="col">
+                            @if ($mission->comment != null)
+                                {{ $mission->comment }}
+                            @else
+                                No comment
+                            @endif
+                        </div>
+                    </div>
+                </div>
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>

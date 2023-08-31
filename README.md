@@ -4,7 +4,6 @@
 
 1. Install styles & scripts form cdns
 1. Cash logo image
-1. Work on user side app
 1. Make app a PWA
 1. Add camera to take photos to receipts
 1. Add wakeLock to the app (maybe only for the admin)
@@ -26,6 +25,7 @@
 1. Sweet alert implementation
 1. Archive restore and delete options with alerts & confirms
 1. Add group crud functionalities
+1. Work on user side app
 1. Add users to every group
 
 ## Done Sections
@@ -46,6 +46,5 @@
 
     - add other curd expenses
     - make expenses looks good in mobile
-    - add account info with change password
 
 1. Transform App to PWA `0%`

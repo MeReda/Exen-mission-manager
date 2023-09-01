@@ -1,6 +1,7 @@
 <h2 class="text-center m-5">Expenses</h2>
 <div class="expenses bg-white p-3 my-5 w-100">
 
+    <a href="{{ route('client.printReimbursement', $mission->id) }}">Print Reimbursement Request</a>
     @if ($mission->state == 'incomplete')
         <button type="button" class="btn btn-success float-end mb-3" data-bs-toggle="modal"
             data-bs-target="#addExpenseModal">

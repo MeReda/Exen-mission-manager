@@ -1,10 +1,5 @@
 <?php
 
-use App\Http\Controllers\ArchivedMissionController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\GroupController;
-use App\Http\Controllers\MissionController;
-use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\client\clientController;
@@ -29,6 +24,7 @@ Route::middleware(['auth', 'CheckUser'])->group(function () {
     Route::put('/settings', [clientController::class, 'updateInfo'])->name('client.updateInfo');
     Route::put('/settings/password', [clientController::class, 'updatePassword'])->name('client.updatePassword');
     Route::delete('/expense/{id}', [clientController::class, 'destroyExpense'])->name('client.destroyExpense');
+    Route::get('/mission/print/reimbursement/{id}', [clientController::class, 'printReimbursement'])->name('client.printReimbursement');
 });
 
 Auth::routes();

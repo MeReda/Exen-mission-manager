@@ -20,9 +20,9 @@
 
     - add to mission reimbursement state
 
-        - if reimbursement state is 'paid' the employee can't print reimbursement state
+        - if reimbursement state is 'paid' the employee can't print reimbursement request
 
-        - if ~~ state is 'unpaid' the employee can print reimbursement
+        - if ~~ state is 'unpaid' the employee can print reimbursement request
 
     - the total reimbursement will be calculated by two ways:
 
@@ -31,9 +31,11 @@
         - per day from group daily price
 
 1. `User`:
+    - the user can print reimbursement request 💯
+    - make constraint on the user to not print the reimbursement request if the mission the reimbursement state is 'paid'
     - the user can make a mission request
 
-## Done
+## Done 💯
 
 1. Add authentication
 1. UML diagrams
@@ -49,17 +51,17 @@
 
 ## Done Sections
 
-1. Dashboard `100%`
+1. Dashboard 💯
 
-1. Archive `100%`
+1. Archive 💯
 
-1. Groups `100%`
+1. Groups 💯
 
-1. Users `100%`
+1. Users 💯
 
-1. Missions `100%`
+1. Missions 💯
 
-1. Settings `100%`
+1. Settings 💯
 
 1. Client Side `80%`
 

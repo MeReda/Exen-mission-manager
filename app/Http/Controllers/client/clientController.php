@@ -5,11 +5,14 @@ namespace App\Http\Controllers\client;
 use App\Http\Controllers\Controller;
 use App\Models\Expense;
 use App\Models\Group;
+use App\Models\Mission;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Str;
+
+use PDF;
 
 class clientController extends Controller
 {
@@ -68,6 +71,27 @@ class clientController extends Controller
 
         // redirect to mission
         return redirect()->route('client.show', ['id' => $mission->id]);
+    }
+
+    /**
+     * Print reimbursement request
+     */
+    public function printReimbursement($id)
+    {
+        $mission = Mission::find($id);
+
+        // Get logged in user
+        $admin = auth()->user();
+
+        $data = [
+            'date' => date('d/m/Y'),
+            'mission' => $mission,
+            'admin' => $admin
+        ];
+
+        $pdf = PDF::loadView('client.printReimbursementRequest', $data);
+
+        return $pdf->stream('reimbursement.pdf');
     }
 
     public function settings()

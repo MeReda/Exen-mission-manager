@@ -74,7 +74,7 @@ class UserController extends Controller
             'email' => 'required|email|unique:users',
             'password' => 'required|min:8',
             'profile' => 'required',
-            'group_id' => 'required|exists:groups,id'
+            'group_id' => 'exists:groups,id'
         ]);
 
         // store the data
@@ -160,7 +160,7 @@ class UserController extends Controller
     {
         // validate the data
         $request->validate([
-            'password' => 'required|min:8',
+            'passwords' => 'required|min:8',
         ]);
 
         // store the data

@@ -41,20 +41,24 @@
                         @endif
 
                         {{-- Show group percentage --}}
-                        <div class="row mt-5 align-items-center">
-                            <div class="col-3"><strong>Group percentage: </strong></div>
-                            <div class="col-2">{{ $mission->user->group->percentage }} %</div>
-                        </div>
-
-                        {{-- Show Expenses Total --}}
-                        <div class="row mt-5 align-items-center">
-                            <div class="col-2"><strong>Total: </strong></div>
-
-                            <div class="col-2"><input type="number" class="form-control" name="total_reimbursement"
-                                    value="{{ $total + ($mission->user->group->percentage / 100) * $total }}" required>
+                        @if ($mission->user->group != null)
+                            <div class="row mt-5 align-items-center">
+                                <div class="col-3"><strong>Group percentage: </strong></div>
+                                <div class="col-2">{{ $mission->user->group->percentage }} %</div>
                             </div>
-                            <div class="col-1">DH</div>
-                        </div>
+
+                            {{-- Show Expenses Total --}}
+                            <div class="row mt-5 align-items-center">
+                                <div class="col-2"><strong>Total: </strong></div>
+
+                                <div class="col-2"><input type="number" class="form-control"
+                                        name="total_reimbursement"
+                                        value="{{ $total + ($mission->user->group->percentage / 100) * $total }}"
+                                        required>
+                                </div>
+                                <div class="col-1">DH</div>
+                            </div>
+                        @endif
 
                         {{-- Show Expenses Comment --}}
                         <div class="row mt-5 align-items-center">

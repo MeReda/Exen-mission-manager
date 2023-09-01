@@ -38,7 +38,7 @@
                     </div>
                     <div class="form-group">
                         <label for="name">Group Id:</label>
-                        <select name="group_id" class="form-control" required>
+                        <select name="group_id" class="form-control">
                             <option value="" selected disabled>Select Group Id</option>
                             @foreach ($groups as $group)
                                 <option value="{{ $group->id }}">{{ $group->id }} - {{ $group->name }}</option>
@@ -62,7 +62,7 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-success">Add Group</button>
+                    <button type="submit" class="btn btn-success">Add User</button>
                 </div>
             </form>
         </div>

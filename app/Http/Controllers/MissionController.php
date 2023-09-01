@@ -108,8 +108,7 @@ class MissionController extends Controller
                     }
                 },
             ],
-            'companion' => 'required',
-            'budget' => 'required|numeric',
+            'budget' => 'numeric|nullable',
             'user_id' => 'required|exists:users,id',
         ]);
 

@@ -44,7 +44,7 @@
                     </div>
                     <div class="form-group">
                         <label for="name">Companion:</label>
-                        <select name="companion" class="form-select" required>
+                        <select name="companion" class="form-select">
                             <option value="" selected disabled>Select User</option>
                             @foreach ($users as $user)
                                 <option value="{{ $user->fname }} {{ $user->lname }}">
@@ -55,8 +55,7 @@
                     </div>
                     <div class="form-group">
                         <label for="name">Budget:</label>
-                        <input type="text" class="form-control" name="budget" required
-                            placeholder="Mission Fixed Budget">
+                        <input type="text" class="form-control" name="budget" placeholder="Mission Fixed Budget">
                     </div>
                     <div class="form-group">
                         <label for="name">User:</label>

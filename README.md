@@ -18,7 +18,7 @@
 
     - when the mission is created the admin can print the first document called 'mission order' 💯
 
-    - add to mission reimbursement state
+    - add to mission reimbursement state 💯
 
         - if reimbursement state is 'paid' the employee can't print reimbursement request
 

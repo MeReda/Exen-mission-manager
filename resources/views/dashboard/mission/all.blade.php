@@ -24,7 +24,13 @@
                 <td class="p-3">{{ $mission->date }}</td>
                 <td class="p-3">{{ $start_date->diffInDays($end_date) }} days</td>
                 <td class="p-3">{{ $mission->user->fname }} {{ $mission->user->lname }}</td>
-                <td class="p-3">{{ $mission->budget }} DH</td>
+                <td class="p-3">
+                    @if ($mission->budget)
+                        {{ $mission->budget }} DH
+                    @else
+                        not defined
+                    @endif
+                </td>
                 <td class="text-center ">
                     <div class="d-flex mx-1">
 
@@ -45,8 +51,7 @@
                         @if ($mission->state == 'incomplete')
                             {{-- Edit Mission --}}
                             <button class="btn btn-sm fs-4 text-success" data-bs-toggle="modal"
-                                data-bs-target="#missionEditModal{{ $mission->id }}" data-bs-backdrop="static"
-                                data-bs-placement="top" title="Approve Reimbursement">
+                                data-bs-target="#missionEditModal{{ $mission->id }}" data-bs-backdrop="static">
                                 <i class="fa-solid fa-edit"></i>
                             </button>
 

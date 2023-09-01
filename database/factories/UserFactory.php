@@ -25,13 +25,13 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'fname' => $this->faker->firstName(),
-            'lname' => $this->faker->lastName(),
+            'fname' => 'Admin',
+            'lname' => 'Admin',
             'CIN' => $this->faker->regexify('[A-Z]{1}[0-9]{6}'),
-            'email' => $this->faker->unique()->safeEmail(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'group_id' => rand(1, 2),
-            'profile' => $this->faker->randomElement(['developer', 'designer']),
+            'email' => 'admin@exen.com',
+            'password' => '$2y$10$4II/hf.x/VyJBXDxmpA5Q.F5g9dsmBAXkRJLsn6pddOyPoreQ9gHK', // test
+            'profile' => 'developer',
+            'type' => 'admin',
         ];
     }
 }

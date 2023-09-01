@@ -14,7 +14,9 @@
 
     - companion should be taken from the employees 💯
 
-    - add link from user through mission
+    - add link from user through mission 💯
+
+    - when the mission is created the admin can print the first document called 'mission order'
 
     - add to mission reimbursement state
 
@@ -27,8 +29,6 @@
         - from expenses that should be approved
 
         - per day from group daily price
-
-    - when the mission is created the admin can print the first document called 'mission order'
 
 1. `User`:
     - the user can make a mission request

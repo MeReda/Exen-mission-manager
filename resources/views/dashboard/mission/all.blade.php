@@ -47,8 +47,9 @@
                             <form action="{{ route('dashboard.mission.complete', $mission->id) }}" method="post">
                                 @csrf
                                 @method('PATCH')
-                                <button type="submit" class="btn btn-sm fs-4 text-warning"><i
-                                        class="fa-solid fa-circle-check"></i></button>
+                                <button type="submit" class="btn btn-sm fs-4 text-warning">
+                                    <i class="fa-solid fa-circle-check"></i>
+                                </button>
                             </form>
                         @elseif ($mission->state == 'complete')
                             {{-- Print Mission state --}}

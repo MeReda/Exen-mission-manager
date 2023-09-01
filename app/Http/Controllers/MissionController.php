@@ -38,10 +38,13 @@ class MissionController extends Controller
     public function printMission($id)
     {
         $mission = Mission::find($id);
+        // Get logged in user
+        $admin = auth()->user();
 
         $data = [
             'date' => date('d/m/Y'),
-            'mission' => $mission
+            'mission' => $mission,
+            'admin' => $admin
         ];
 
         $pdf = PDF::loadView('dashboard.mission.printMission', $data);
@@ -137,7 +140,12 @@ class MissionController extends Controller
      */
     public function show($id)
     {
-        //
+        // Get logged in user
+        $admin = auth()->user();
+
+        $mission = Mission::find($id);
+
+        return view('dashboard.mission.missionInfo', ['mission' => $mission, 'admin' => $admin, 'active' => 'mission']);
     }
 
     /**

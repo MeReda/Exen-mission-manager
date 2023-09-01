@@ -10,7 +10,7 @@
 <body>
     <div class="w-100 text-center"><img src="https://www.exen.ma/images/Logo.png" alt="" width="200px"></div>
 
-    <h1 class="mt-5">Mission details</h1>
+    <h1 class="mt-5">Mission Order</h1>
     <p>{{ $date }}</p>
 
     <p><strong>Name:</strong> {{ $mission->name }}</p>
@@ -29,6 +29,8 @@
             <p><strong>End date:</strong> {{ $mission->end_date }}</p>
         </div>
     </div>
+
+    <p><strong>Signature:</strong> {{ $admin->fname }} {{ $admin->lname }}</p>
 </body>
 
 </html>

@@ -23,7 +23,7 @@ return new class extends Migration
             $table->date('start_date');
             $table->date('end_date');
             $table->string("companion");
-            $table->decimal("budget");
+            $table->decimal("budget")->nullable();
             $table->enum('state', ['incomplete', 'complete', 'approved'])->default('incomplete');
             $table->string('comment')->nullable();
             $table->decimal('total_reimbursement')->nullable();

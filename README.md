@@ -16,7 +16,7 @@
 
     - add link from user through mission 💯
 
-    - when the mission is created the admin can print the first document called 'mission order'
+    - when the mission is created the admin can print the first document called 'mission order' 💯
 
     - add to mission reimbursement state
 

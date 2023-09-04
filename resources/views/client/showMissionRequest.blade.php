@@ -1,7 +1,7 @@
 @extends('client.layout')
 
 @section('content')
-    <h1 class="text-center m-5">Mission info</h1>
+    <h1 class="text-center m-5">Mission Request info</h1>
 
     <div class="bg-white p-3">
         {{-- crud buttons --}}
@@ -47,7 +47,15 @@
             @endif
         </p>
 
-        <p><strong>Status:</strong> {{ $mission_request->status }} </p>
+        <p><strong>Status:</strong>
+            @if ($mission_request->status == 'rejected')
+                <span class="text-danger">{{ $mission_request->status }}</span>
+            @elseif($mission_request->status == 'accepted')
+                <span class="text-success">{{ $mission_request->status }}</span>
+            @else
+                {{ $mission_request->status }}
+            @endif
+        </p>
     </div>
 
     {{-- edit mission request modal --}}

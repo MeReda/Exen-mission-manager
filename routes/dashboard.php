@@ -22,6 +22,7 @@ Route::get('/mission/print/reimbursement/{id}', [MissionController::class, 'prin
 
 // mission requests
 Route::get('/mission-requests', [MissionRequestController::class, 'index'])->name('dashboard.mission.requests');
+Route::patch('/mission-requests/approve/{mission_request}', [MissionRequestController::class, 'approve'])->name('dashboard.mission.requests.approve');
 Route::patch('/mission-requests/reject/{mission_request}', [MissionRequestController::class, 'reject'])->name('dashboard.mission.requests.reject');
 
 // archived missions

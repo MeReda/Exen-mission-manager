@@ -40,7 +40,8 @@
 
                         @if ($mission->status == 'pending')
                             {{-- approve mission request button --}}
-                            <button class="btn btn-sm" data-toggle="modal" data-target="#approveMissionModal">
+                            <button type="button" class="btn btn-sm" data-bs-toggle="modal"
+                                data-bs-target="#approveMissionRequestModal{{ $mission->id }}">
                                 <i class="fs-4 fa-solid fa-circle-check text-success"></i>
                             </button>
 
@@ -62,4 +63,7 @@
 
     {{-- Show mission request info --}}
     @include('dashboard.mission_requests.show')
+
+    {{-- Approve mission request --}}
+    @include('dashboard.mission_requests.approve')
 @endsection

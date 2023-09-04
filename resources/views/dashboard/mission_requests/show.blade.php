@@ -24,7 +24,15 @@
                             Not defined
                         @endif
                     </p>
-                    <p><strong>Status:</strong> {{ $mission->status }}</p>
+                    <p class="d-flex"><strong>Status: </strong>
+                        @if ($mission->status === 'accepted')
+                            <span class="ms-2 text-success">{{ $mission->status }}</span>
+                        @elseif ($mission->status === 'rejected')
+                            <span class="ms-2 text-danger">{{ $mission->status }}</span>
+                        @else
+                            <span class="ms-2">{{ $mission->status }}</span>
+                        @endif
+                    </p>
                 </div>
             </div>
         </div>

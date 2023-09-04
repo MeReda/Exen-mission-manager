@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Group;
+use App\Models\Mission_request;
 use App\Models\User;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -23,6 +24,9 @@ class UserController extends Controller
 
         $groups = Group::all();
 
+        // get pending mission requests count
+        $mission_requests_count = Mission_request::where('status', 'pending')->count();
+
         // Get logged in user
         $admin = auth()->user();
 
@@ -31,7 +35,13 @@ class UserController extends Controller
         $text = 'Are you sure you want to delete this user?';
         confirmDelete($title, $text);
 
-        return view('dashboard.user.index', ['active' => 'user', 'groups' => $groups, 'users' => $users, 'admin' => $admin]);
+        return view('dashboard.user.index', [
+            'active' => 'user',
+            'groups' => $groups,
+            'users' => $users,
+            'mission_requests_count' => $mission_requests_count,
+            'admin' => $admin
+        ]);
     }
 
     public function printAll()

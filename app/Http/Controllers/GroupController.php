@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Group;
+use App\Models\Mission_request;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -17,6 +18,9 @@ class GroupController extends Controller
     {
         $groups = Group::paginate(10);
 
+        // get pending mission requests count
+        $mission_requests_count = Mission_request::where('status', 'pending')->count();
+
         // Get logged in user
         $admin = auth()->user();
 
@@ -25,7 +29,12 @@ class GroupController extends Controller
         $text = 'Are you sure you want to delete this group?';
         confirmDelete($title, $text);
 
-        return view('dashboard.group.index', ['active' => 'group', 'admin' => $admin,  'groups' => $groups]);
+        return view('dashboard.group.index', [
+            'active' => 'group',
+            'admin' => $admin,
+            'mission_requests_count' => $mission_requests_count,
+            'groups' => $groups
+        ]);
     }
 
     /**

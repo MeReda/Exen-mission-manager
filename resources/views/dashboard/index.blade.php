@@ -3,7 +3,7 @@
 @section('content')
     <h2 class="my-5">Dashboard</h2>
 
-    <div class="row gap-5 justify-content-center align-items-center h-75 text-center">
+    <div class="row pt-5 mt-5 gy-1 gap-5 justify-content-center align-items-center h-75 text-center">
         <div class="dashboard-card col-2 p-5 rounded-5">
             <h3>Missions</h3>
             <h1 class="mt-5">{{ $missions }}</h1>
@@ -15,13 +15,19 @@
         </div>
 
         <div class="dashboard-card col-2 p-5 rounded-5">
-            <h3>Groups</h3>
-            <h1 class="mt-5">{{ $groups }}</h1>
+            <h3>Mission Requests</h3>
+            <h1 class="mt-3">{{ $mission_requests_count }}</h1>
+        </div>
+        <div class="row gap-5 justify-content-center align-items-center text-center">
+            <div class="dashboard-card col-2 p-5 rounded-5">
+                <h3>Groups</h3>
+                <h1 class="mt-5">{{ $groups }}</h1>
+            </div>
+            <div class="dashboard-card col-2 p-5 rounded-5">
+                <h3>Users</h3>
+                <h1 class="mt-5">{{ $users }}</h1>
+            </div>
         </div>
 
-        <div class="dashboard-card col-2 p-5 rounded-5">
-            <h3>Users</h3>
-            <h1 class="mt-5">{{ $users }}</h1>
-        </div>
     </div>
 @endsection

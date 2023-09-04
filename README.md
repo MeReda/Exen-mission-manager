@@ -20,9 +20,9 @@
 
     - add to mission reimbursement state 💯
 
-        - if reimbursement state is 'paid' the employee can't print reimbursement request
+        - if reimbursement state is 'paid' the employee can't print reimbursement request 💯
 
-        - if ~~ state is 'unpaid' the employee can print reimbursement request
+        - if reimbursement state is 'unpaid' the employee can print reimbursement request 💯
 
     - the total reimbursement will be calculated by two ways:
 
@@ -32,8 +32,10 @@
 
 1. `User`:
     - the user can print reimbursement request 💯
-    - make constraint on the user to not print the reimbursement request if the mission the reimbursement state is 'paid'
+    - make constraint on the user to not print the reimbursement request if the mission the reimbursement state is 'paid' 💯
     - the user can make a mission request
+        - the mission request should have a state ('pending', 'accepted', 'rejected') 💯
+        - make the edit and delete buttons disabled if the mission request state is approved 💯
 
 ## Done 💯
 

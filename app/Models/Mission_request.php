@@ -18,6 +18,7 @@ class Mission_request extends Model
         'date',
         'place',
         'companion',
+        'status',
         'user_id',
     ];
 

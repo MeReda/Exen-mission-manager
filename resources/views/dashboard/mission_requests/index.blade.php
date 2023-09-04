@@ -24,41 +24,42 @@
                     $start_date = \Carbon\Carbon::parse($mission->start_date);
                     $end_date = \Carbon\Carbon::parse($mission->end_date);
                 @endphp
-                <tr>
+                <tr class="@if ($mission->status == 'pending') table-warning @endif">
                     <td>{{ $mission->name }}</td>
                     <td>{{ $mission->object }}</td>
                     <td>{{ $mission->place }}</td>
                     <td>{{ $mission->start_date }}</td>
                     <td>{{ $start_date->diffInDays($end_date) }} days</td>
                     <td>{{ $mission->user->fname }} {{ $mission->user->lname }} </td>
-                    <td>
-                        <a href="{{-- route('mission_requests.show', $mission->id) --}}" class="btn btn-sm">
+                    <td class="d-flex text-center justify-content-center">
+                        {{-- show mission request button --}}
+                        <button type="button" class="btn btn-sm" data-bs-toggle="modal"
+                            data-bs-target="#showMissionRequestModal{{ $mission->id }}">
                             <i class="fs-4 fa-solid fa-circle-info text-info"></i>
-                        </a>
-                        <form action="{{-- route('mission_requests.destroy', $mission->id) --}}" method="POST" class="d-inline">
-                            @csrf
-                            @method('DELETE')
-                            <button class="btn btn-sm">
-                                <i class="fs-4 fa-solid fa-circle-xmark text-danger"></i>
-                            </button>
-                        </form>
-
-                        <button class="btn btn-sm" data-toggle="modal" data-target="#approveMissionModal">
-                            <i class="fs-4 fa-solid fa-check text-success"></i>
                         </button>
+
+                        @if ($mission->status == 'pending')
+                            {{-- approve mission request button --}}
+                            <button class="btn btn-sm" data-toggle="modal" data-target="#approveMissionModal">
+                                <i class="fs-4 fa-solid fa-circle-check text-success"></i>
+                            </button>
+
+                            {{-- reject mission request button --}}
+                            <form action="{{ route('dashboard.mission.requests.reject', $mission->id) }}" method="post">
+                                @csrf
+                                @method('PATCH')
+                                <input type="hidden" name="mission_id" value="{{ $mission->id }}">
+                                <button type="submit" class="btn btn-sm">
+                                    <i class="fs-4 fa-solid fa-circle-xmark text-danger"></i>
+                                </button>
+                            </form>
+                        @endif
                     </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
 
-    {{-- Show missions table --}}
-
-    {{-- Show mission detail modal --}}
-
-    {{-- Edit Mission --}}
-
-    {{-- Approve Expenses Modal --}}
-
-    {{-- Print mission info & reimbursement request --}}
+    {{-- Show mission request info --}}
+    @include('dashboard.mission_requests.show')
 @endsection

@@ -58,13 +58,15 @@ class GroupController extends Controller
         // Validate data
         $request->validate([
             'name' => 'required|unique:groups|max:255',
-            'percentage' => 'required|numeric|min:0|max:100'
+            'percentage' => 'required|numeric|min:0|max:100',
+            'daily_allowance' => 'required|numeric|min:0',
         ]);
 
         // Create new group
         $group = new Group;
         $group->name = $request->name;
         $group->percentage = $request->percentage;
+        $group->daily_allowance = $request->daily_allowance;
         $group->save();
 
         // Show success toast alert
@@ -108,12 +110,14 @@ class GroupController extends Controller
         // Validate data
         $request->validate([
             'name' => 'required|max:255|unique:groups,name,' . $group->id,
-            'percentage' => 'required|numeric|min:0|max:100'
+            'percentage' => 'required|numeric|min:0|max:100',
+            'daily_allowance' => 'required|numeric|min:0',
         ]);
 
         // Update group
         $group->name = $request->name;
         $group->percentage = $request->percentage;
+        $group->daily_allowance = $request->daily_allowance;
         $group->save();
 
         // Show success toast alert

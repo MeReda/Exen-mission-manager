@@ -21,12 +21,12 @@
                 <td class="p-3">{{ $mission->name }}</td>
                 <td class="p-3">{{ $mission->object }}</td>
                 <td class="p-3">{{ $mission->place }}</td>
-                <td class="p-3">{{ $mission->date }}</td>
-                <td class="p-3">{{ $start_date->diffInDays($end_date) }} days</td>
+                <td class="p-3 text-nowrap">{{ $mission->date }}</td>
+                <td class="p-3">{{ $start_date->diffInDays($end_date) }}&nbsp;days</td>
                 <td class="p-3">{{ $mission->user->fname }} {{ $mission->user->lname }}</td>
                 <td class="p-3">
                     @if ($mission->budget)
-                        {{ $mission->budget }} DH
+                        {{ $mission->budget }}&nbsp;DH
                     @else
                         not defined
                     @endif

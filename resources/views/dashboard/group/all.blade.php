@@ -4,6 +4,7 @@
             <th>ID</th>
             <th>Name</th>
             <th>Percentage</th>
+            <th>Daily allowance</th>
             <th>Members</th>
             <th></th>
         </tr>
@@ -14,6 +15,7 @@
                 <td class="p-3">{{ $group->id }}</td>
                 <td class="p-3">{{ $group->name }}</td>
                 <td class="p-3">{{ $group->percentage }} %</td>
+                <td class="p-3">{{ $group->daily_allowance }} DH</td>
                 <td class="p-3">
                     @foreach ($group->users as $user)
                         <span class="me-2">{{ $user->fname }} {{ $user->lname }},</span>

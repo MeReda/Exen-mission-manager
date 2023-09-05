@@ -37,11 +37,11 @@
                         <input type="text" class="form-control" name="profile" required>
                     </div>
                     <div class="form-group">
-                        <label for="name">Group Id:</label>
-                        <select name="group_id" class="form-control">
-                            <option value="" selected disabled>Select Group Id</option>
+                        <label for="name">Group:</label>
+                        <select name="group_id" class="form-select">
+                            <option value="" selected disabled>Select Group</option>
                             @foreach ($groups as $group)
-                                <option value="{{ $group->id }}">{{ $group->id }} - {{ $group->name }}</option>
+                                <option value="{{ $group->id }}">{{ $group->name }}</option>
                             @endforeach
                         </select>
                     </div>

@@ -49,7 +49,7 @@
                         <p>
                             <strong>Expenses: </strong>
                             <button type="button" class="btn btn-sm btn-info text-white ms-2" data-bs-toggle="modal"
-                                data-bs-target="#missionExpensesModal">
+                                data-bs-target="#missionExpensesModal{{ $mission->id }}">
                                 Show Expenses
                             </button>
                         </p>
@@ -66,8 +66,8 @@
     </div>
 
     {{-- Mission Expenses Modal --}}
-    <div class="modal fade" id="missionExpensesModal" tabindex="-1" aria-labelledby="missionExpensesModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="missionExpensesModal{{ $mission->id }}" tabindex="-1"
+        aria-labelledby="missionExpensesModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">

@@ -194,7 +194,6 @@ class MissionController extends Controller
                     }
                 },
             ],
-            'companion' => 'required',
             'budget' => 'required|numeric',
             'user_id' => 'required|exists:users,id',
         ]);
@@ -245,12 +244,12 @@ class MissionController extends Controller
             'total_reimbursement' => 'required|numeric',
         ]);
 
-        // Check if the total_reimbursement is less than the budget
-        if ($request->total_reimbursement > $mission->budget) {
-            Alert::toast('Total reimbursement must be less than the budget', 'error');
+        // // Check if the total_reimbursement is less than the budget
+        // if ($request->total_reimbursement > $mission->budget) {
+        //     Alert::toast('Total reimbursement must be less than the budget', 'error');
 
-            return redirect()->route('dashboard.mission.index');
-        }
+        //     return redirect()->route('dashboard.mission.index');
+        // }
 
         // if the total_reimbursement is less than the budget, update the mission
         $mission->state = 'approved';

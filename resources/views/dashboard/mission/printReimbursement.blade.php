@@ -17,38 +17,53 @@
     <p><strong>Mission Name:</strong> {{ $mission->name }}</p>
     <p><strong>Object:</strong> {{ $mission->object }}</p>
 
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th scope="col">Category</th>
-                <th scope="col">Description</th>
-                <th scope="col">Amount</th>
-            </tr>
-        </thead>
-        <tbody>
-            @php
-                $totalExpenses = 0;
-            @endphp
-            @foreach ($mission->expenses as $expense)
+    @if ($mission->expenses->isNotEmpty())
+        <table class="table table-bordered">
+            <thead>
                 <tr>
-                    <td>{{ $expense->category }}</td>
-                    <td>{{ $expense->description }}</td>
-                    <td>{{ $expense->amount }}&nbsp;DH</td>
+                    <th scope="col">Category</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Amount</th>
                 </tr>
+            </thead>
+            <tbody>
                 @php
-                    $totalExpenses += $expense->amount;
+                    $totalExpenses = 0;
                 @endphp
-            @endforeach
-        </tbody>
-        <tfoot>
-            <tr>
-                <td colspan="2"><strong>Total:</strong></td>
-                <td>{{ $totalExpenses }} DH</td>
-            </tr>
-        </tfoot>
-    </table>
+                @foreach ($mission->expenses as $expense)
+                    <tr>
+                        <td>{{ $expense->category }}</td>
+                        <td>{{ $expense->description }}</td>
+                        <td>{{ $expense->amount }}&nbsp;DH</td>
+                    </tr>
+                    @php
+                        $totalExpenses += $expense->amount;
+                    @endphp
+                @endforeach
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="2"><strong>Total:</strong></td>
+                    <td>{{ $totalExpenses }} DH</td>
+                </tr>
+            </tfoot>
+        </table>
 
-    <p><strong>Group bonus: </strong>{{ $mission->user->group->percentage }} %</p>
+        <p><strong>Group bonus: </strong>{{ $mission->user->group->percentage }} %</p>
+    @else
+        {{-- mission total days count --}}
+        @php
+            $mission_start = \Carbon\Carbon::parse($mission->start_date);
+            $mission_end = \Carbon\Carbon::parse($mission->end_date);
+            
+            $mission_days = $mission_start->diffInDays($mission_end);
+        @endphp
+        <p class="mt-3"><strong>Mission total days</strong> {{ $mission_days }} days</p>
+
+
+        <p><strong>Group daily allowance: </strong>{{ $mission->user->group->daily_allowance }} DH</p>
+    @endif
+
     <p><strong>Final Total: </strong>{{ $mission->total_reimbursement }} DH</p>
     @if ($mission->comment)
         <p><strong>Comment: </strong> {{ $mission->comment }} </p>

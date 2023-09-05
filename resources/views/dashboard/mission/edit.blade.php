@@ -38,40 +38,47 @@
                         <div class="form-user">
                             <label for="name">Start Date:</label>
                             <input type="date" class="form-control" name="start_date" required
-                                value="{{ $mission->start_date }}" min="{{ date('Y-m-d') }}">
+                                value="{{ $mission->start_date }}">
                         </div>
 
                         <div class="form-user">
                             <label for="name">End Date:</label>
                             <input type="date" class="form-control" name="end_date" required
-                                value="{{ $mission->end_date }}" min="{{ $mission->start_date }}">
+                                value="{{ $mission->end_date }}">
                         </div>
 
                         <div class="form-user">
                             <label for="name">Date:</label>
                             <input type="date" class="form-control" name="date" required
-                                value="{{ $mission->date }}" min="{{ $mission->start_date }}"
-                                max="{{ $mission->end_date }}">
+                                value="{{ $mission->date }}">
                         </div>
 
                         <div class="form-user">
                             <label for="name">Companion:</label>
-                            <input type="text" class="form-control" name="companion" required
-                                value="{{ $mission->companion }}">
+                            <select name="companion" class="form-select">
+                                <option value="" selected disabled>Select User ID</option>
+                                @foreach ($users as $user)
+                                    <option value="{{ $user->fname }} {{ $user->lname }}"
+                                        {{ $user->fname . ' ' . $user->lname == $mission->companion ? 'selected' : '' }}>
+                                        {{ $user->fname }} {{ $user->lname }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
 
                         <div class="form-user">
                             <label for="name">Budget:</label>
-                            <input type="text" class="form-control" name="budget" required
-                                value="{{ $mission->budget }}">
+                            <input type="text" class="form-control" name="budget" value="{{ $mission->budget }}">
                         </div>
 
                         <div class="form-user">
                             <label for="name">User ID:</label>
-                            <select name="user_id" class="form-control" required>
+                            <select name="user_id" class="form-select" required>
                                 <option value="" selected disabled>Select User ID</option>
                                 @foreach ($users as $user)
-                                    <option value="{{ $user->id }}">{{ $user->id }} - {{ $user->lname }}
+                                    <option value="{{ $user->id }}"
+                                        {{ $user->id == $mission->user->id ? 'selected' : '' }}>
+                                        {{ $user->fname }} {{ $user->lname }}
                                     </option>
                                 @endforeach
                             </select>

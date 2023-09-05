@@ -1,79 +1,101 @@
 @extends('client.layout')
 
 @section('content')
-    <h1 class="text-center m-5">My Missions</h1>
+    <h1 class="text-center m-5">Mission Request info</h1>
 
+    <div class="bg-white p-3">
+        {{-- crud buttons --}}
+        @if ($mission_request->status == 'pending')
+            <div class="d-flex float-end">
+                <button type="button" class="btn btn-success me-3" data-bs-toggle="modal"
+                    data-bs-target="#editMissionRequestModal">
+                    <i class="fa-solid fa-edit"></i>
+                </button>
 
-    {{-- Show missions --}}
-    @forelse ($missions as $mission)
-        <a href="{{ route('client.show', $mission->id) }}"
-            class="mission-card mb-3 p-3 px-md-5 gap-3  @if ($mission->state != 'incomplete') opacity-50 @endif">
-            <p class="m-0">{{ $mission->name }}</p>
-            <p class="m-0">{{ $mission->object }}</p>
-            <p class="m-0">{{ $mission->date }}</p>
-        </a>
-    @empty
-        <div class="mb-3 mission-card">
-            <div class="card-body">
-                <h5 class="card-title text-center">no missions</h5>
+                <form action="{{ route('client.destroyMissionRequest', $mission_request->id) }}" method="post">
+                    @csrf
+                    @method('DELETE')
+                    <button class="btn btn-danger">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </form>
             </div>
-        </div>
-    @endforelse
+        @endif
 
-    {{-- Show mission requests --}}
-    <h1 class="text-center m-5 pt-5">My Mission Requests</h1>
+        {{-- mission request info --}}
+        <p><strong>ID:</strong> {{ $mission_request->id }}</p>
 
-    {{-- Create mission request --}}
-    <button class="btn btn-success float-end mb-3" data-bs-toggle="modal" data-bs-target="#createMissionRequestModal">
-        Create Mission Request
-    </button>
+        <p><strong>Name:</strong> {{ $mission_request->name }}</p>
 
-    @forelse ($mission_requests as $mission_request)
-        <a href="{{ route('client.showMissionRequest', $mission_request->id) }}"
-            class="mission-card mb-3 p-3 px-md-5 gap-3 @if ($mission_request->status != 'pending') opacity-50 @endif">
-            <p class="m-0">{{ $mission_request->name }}</p>
-            <p class="m-0">{{ $mission_request->object }}</p>
-            <p class="m-0">{{ $mission_request->date }}</p>
-        </a>
-    @empty
-        <div class="mb-3 mission-card">
-            <div class="card-body">
-                <h5 class="card-title text-center">no mission requests</h5>
-            </div>
-        </div>
-    @endforelse
+        <p><strong>Object:</strong> {{ $mission_request->object }}</p>
 
-    {{-- create mission modal --}}
-    <div class="modal fade" id="createMissionRequestModal" tabindex="-1" aria-labelledby="createMissionRequestModalLabel"
+        <p><strong>description:</strong> {{ $mission_request->description }}</p>
+
+        <p><strong>place:</strong> {{ $mission_request->place }}</p>
+
+        <p><strong>Start Date:</strong> {{ $mission_request->start_date }}</p>
+
+        <p><strong>date:</strong> {{ $mission_request->date }}</p>
+
+        <p><strong>End Date:</strong> {{ $mission_request->end_date }}</p>
+
+        <p><strong>Companion:</strong>
+            @if ($mission_request->companion != null)
+                {{ $mission_request->companion }}
+            @else
+                Not defined
+            @endif
+        </p>
+
+        <p><strong>Status:</strong>
+            @if ($mission_request->status == 'rejected')
+                <span class="text-danger">{{ $mission_request->status }}</span>
+            @elseif($mission_request->status == 'accepted')
+                <span class="text-success">{{ $mission_request->status }}</span>
+            @else
+                {{ $mission_request->status }}
+            @endif
+        </p>
+    </div>
+
+    {{-- edit mission request modal --}}
+
+    <div class="modal fade" id="editMissionRequestModal" tabindex="-1" aria-labelledby="editMissionRequestModalLabel"
         aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="createMissionRequestModalLabel">Create Mission Request</h1>
+                    <h1 class="modal-title fs-5" id="editMissionRequestModalLabel">Modal title</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="{{ route('client.storeMissionRequest') }}" method="post">
+                <form action="{{ route('client.updateMissionRequest', $mission_request->id) }}" method="post">
                     @csrf
+                    @method('PUT')
                     <div class="modal-body">
                         <div class="mb-3">
                             <label for="name" class="form-label">Mission Name</label>
                             <input type="text" class="form-control" id="name" name="name"
-                                placeholder="Mission Name" required>
+                                placeholder="Mission Name" required value="{{ $mission_request->name }}">
                         </div>
+
                         <div class="mb-3">
                             <label for="object" class="form-label">Mission Object</label>
                             <input type="text" class="form-control" id="object" name="object"
-                                placeholder="Mission Object" required>
+                                placeholder="Mission Object" required value="{{ $mission_request->object }}">
                         </div>
+
                         <div class="mb-3">
                             <label for="description" class="form-label">Mission Description</label>
-                            <textarea class="form-control" id="description" name="description" rows="3" placeholder="Mission Description"
-                                required></textarea>
+                            <input type="text" class="form-control" id="description" name="description"
+                                placeholder="Mission Description" required value="{{ $mission_request->description }}">
                         </div>
+
                         <div class="mb-3">
                             <label for="place" class="form-label">Mission Place</label>
-                            <input class="form-control" id="place" name="place" placeholder="Mission Place" required>
+                            <input type="text" class="form-control" id="place" name="place"
+                                placeholder="Mission Place" required value="{{ $mission_request->description }}">
                         </div>
+
                         <div class="mb-3">
                             <label for="name">Start Date:</label>
                             <input type="date" class="form-control" id="start_date" name="start_date" required
@@ -88,29 +110,19 @@
                             <label for="name">Date:</label>
                             <input type="date" class="form-control" id="date" name="date" required>
                         </div>
+
                         <div class="mb-3">
-                            <label for="location" class="form-label">Companion Name</label>
+                            <label for="companion" class="form-label">Companion</label>
                             <select name="companion" id="companion" class="form-select">
                                 <option value="" selected>Choose Companion</option>
                                 @foreach ($users as $companion)
-                                    <option value="{{ $companion->fname }} {{ $companion->lname }}">
+                                    <option value="{{ $companion->fname }} {{ $companion->lname }}"
+                                        @if ($companion->fname . ' ' . $companion->lname === $mission_request->companion) selected @endif>
                                         {{ $companion->fname }} {{ $companion->lname }}
                                     </option>
                                 @endforeach
                             </select>
                         </div>
-
-                        {{-- Show errors --}}
-                        @if ($errors->any())
-                            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-                            <script>
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Oops...',
-                                    text: '{{ $errors->first() }}'
-                                });
-                            </script>
-                        @endif
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

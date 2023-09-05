@@ -75,6 +75,14 @@ class User extends Authenticatable
     }
 
     /**
+     * Get the user's mission requests
+     */
+    public function mission_requests()
+    {
+        return $this->hasMany(Mission_request::class);
+    }
+
+    /**
      * Check if the user is an admin
      */
     public function isAdmin()

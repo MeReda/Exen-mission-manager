@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->integer('percentage');
+            $table->decimal('daily_allowance');
             $table->timestamps();
         });
     }

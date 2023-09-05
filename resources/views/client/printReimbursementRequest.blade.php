@@ -13,11 +13,12 @@
     <h1 class="mt-5">Reimbursement Request</h1>
     <p>{{ $date }}</p>
 
-    <p><strong>Employee:</strong> {{ $mission->user->fname }} {{ $mission->user->lname }}</p>
     <p><strong>Mission Name:</strong> {{ $mission->name }}</p>
     <p><strong>Object:</strong> {{ $mission->object }}</p>
 
+
     @if ($mission->expenses->isNotEmpty())
+        <h2 class="mt-5">Expenses</h2>
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -49,27 +50,28 @@
             </tfoot>
         </table>
 
-        <p><strong>Group bonus: </strong>{{ $mission->user->group->percentage }} %</p>
+        {{-- show user group bonus percentage --}}
+        <p><strong>Bonus Percentage: </strong> {{ $mission->user->group->percentage }} %</p>
     @else
-        {{-- mission total days count --}}
+        {{-- show mission total days count --}}
         @php
-            $mission_start = \Carbon\Carbon::parse($mission->start_date);
-            $mission_end = \Carbon\Carbon::parse($mission->end_date);
+            $start_date = Carbon\Carbon::parse($mission->start_date);
+            $end_date = Carbon\Carbon::parse($mission->end_date);
             
-            $mission_days = $mission_start->diffInDays($mission_end);
+            $totalDays = $end_date->diffInDays($start_date);
         @endphp
-        <p class="mt-3"><strong>Mission total days</strong> {{ $mission_days }} days</p>
+        <p><strong>Mission total days: </strong> {{ $totalDays }} days</p>
+
+        {{-- show user group daily allowance --}}
+        <p><strong>Daily Allowance: </strong> {{ $mission->user->group->daily_allowance }} DH</p>
 
 
-        <p><strong>Group daily allowance: </strong>{{ $mission->user->group->daily_allowance }} DH</p>
     @endif
+    {{-- show total reimbursement --}}
+    <p><strong>Total Reimbursement: </strong> {{ $mission->total_reimbursement }} DH</p>
 
-    <p><strong>Final Total: </strong>{{ $mission->total_reimbursement }} DH</p>
-    @if ($mission->comment)
-        <p><strong>Comment: </strong> {{ $mission->comment }} </p>
-    @endif
 
-    <p class="mt-5"><strong>Signature:</strong> {{ $admin->fname }} {{ $admin->lname }}</p>
+    <p class="mt-5"><strong>Signature:</strong> {{ $mission->user->fname }} {{ $mission->user->lname }}</p>
 
 </body>
 

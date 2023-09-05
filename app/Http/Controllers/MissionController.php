@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Mission;
+use App\Models\Mission_request;
 use App\Models\User;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -24,12 +25,21 @@ class MissionController extends Controller
         // Get logged in user
         $admin = auth()->user();
 
+        // get pending mission requests count
+        $mission_requests_count = Mission_request::where('status', 'pending')->count();
+
         // Add sweetalert confirmation
         $title = 'Delete Mission';
         $text = 'Are you sure you want to delete this mission?';
         confirmDelete($title, $text);
 
-        return view('dashboard.mission.index', ['missions' => $missions, 'users' => $users, 'admin' => $admin,  'active' => 'mission']);
+        return view('dashboard.mission.index', [
+            'missions' => $missions,
+            'users' => $users,
+            'admin' => $admin,
+            'mission_requests_count' => $mission_requests_count,
+            'active' => 'mission'
+        ]);
     }
 
     /**
@@ -38,10 +48,13 @@ class MissionController extends Controller
     public function printMission($id)
     {
         $mission = Mission::find($id);
+        // Get logged in user
+        $admin = auth()->user();
 
         $data = [
             'date' => date('d/m/Y'),
-            'mission' => $mission
+            'mission' => $mission,
+            'admin' => $admin
         ];
 
         $pdf = PDF::loadView('dashboard.mission.printMission', $data);
@@ -105,8 +118,7 @@ class MissionController extends Controller
                     }
                 },
             ],
-            'companion' => 'required',
-            'budget' => 'required|numeric',
+            'budget' => 'numeric|nullable',
             'user_id' => 'required|exists:users,id',
         ]);
 
@@ -137,7 +149,12 @@ class MissionController extends Controller
      */
     public function show($id)
     {
-        //
+        // Get logged in user
+        $admin = auth()->user();
+
+        $mission = Mission::find($id);
+
+        return view('dashboard.mission.missionInfo', ['mission' => $mission, 'admin' => $admin, 'active' => 'mission']);
     }
 
     /**
@@ -177,7 +194,6 @@ class MissionController extends Controller
                     }
                 },
             ],
-            'companion' => 'required',
             'budget' => 'required|numeric',
             'user_id' => 'required|exists:users,id',
         ]);
@@ -228,12 +244,12 @@ class MissionController extends Controller
             'total_reimbursement' => 'required|numeric',
         ]);
 
-        // Check if the total_reimbursement is less than the budget
-        if ($request->total_reimbursement > $mission->budget) {
-            Alert::toast('Total reimbursement must be less than the budget', 'error');
+        // // Check if the total_reimbursement is less than the budget
+        // if ($request->total_reimbursement > $mission->budget) {
+        //     Alert::toast('Total reimbursement must be less than the budget', 'error');
 
-            return redirect()->route('dashboard.mission.index');
-        }
+        //     return redirect()->route('dashboard.mission.index');
+        // }
 
         // if the total_reimbursement is less than the budget, update the mission
         $mission->state = 'approved';

@@ -12,9 +12,9 @@
                     @method('PATCH')
                     <div class="modal-body p-5">
                         {{-- Show Expenses infos --}}
-                        @if ($mission->expenses != [])
+                        @if ($mission->expenses->isNotEmpty())
                             <div class="row">
-                                <div class="col-4 fw-bold">Category</div>
+                                <div class="col-4 fw-bold">Category i</div>
                                 <div class="col-4 fw-bold">Amount</div>
                                 <div class="col-4 fw-bold">Receipt</div>
                             </div>
@@ -36,25 +36,53 @@
                                     $total += $expense->amount;
                                 @endphp
                             @endforeach
+                            {{-- Show group percentage --}}
+                            @if ($mission->user->group != null)
+                                <div class="row mt-5 align-items-center">
+                                    <div class="col-3"><strong>Group percentage: </strong></div>
+                                    <div class="col-2">{{ $mission->user->group->percentage }} %</div>
+                                </div>
+
+                                {{-- Show Expenses Total --}}
+                                <div class="row mt-5 align-items-center">
+                                    <div class="col-2"><strong>Total: </strong></div>
+                                    <div class="col-2">
+                                        <input type="number" class="form-control" name="total_reimbursement"
+                                            value="{{ $total + ($mission->user->group->percentage / 100) * $total }}"
+                                            required>
+                                    </div>
+                                    <div class="col-1">DH</div>
+                                </div>
+                            @endif
                         @else
-                            <p>No expenses</p>
-                        @endif
-
-                        {{-- Show group percentage --}}
-                        <div class="row mt-5 align-items-center">
-                            <div class="col-3"><strong>Group percentage: </strong></div>
-                            <div class="col-2">{{ $mission->user->group->percentage }} %</div>
-                        </div>
-
-                        {{-- Show Expenses Total --}}
-                        <div class="row mt-5 align-items-center">
-                            <div class="col-2"><strong>Total: </strong></div>
-
-                            <div class="col-2"><input type="number" class="form-control" name="total_reimbursement"
-                                    value="{{ $total + ($mission->user->group->percentage / 100) * $total }}" required>
+                            {{-- show daily allowance --}}
+                            <div class="row align-items-center">
+                                <div class="col-4 text-start"><strong>Group daily allowance: </strong></div>
+                                <div class="col-2">{{ $mission->user->group->daily_allowance }} DH</div>
                             </div>
-                            <div class="col-1">DH</div>
-                        </div>
+
+                            {{-- show mission days --}}
+                            @php
+                                $mission_start = \Carbon\Carbon::parse($mission->start_date);
+                                $mission_end = \Carbon\Carbon::parse($mission->end_date);
+                                
+                                $mission_days = $mission_start->diffInDays($mission_end);
+                            @endphp
+                            <div class="row mt-5 align-items-center">
+                                <div class="col-4 text-start"><strong>Mission total days</strong></div>
+                                <div class="col-2">{{ $mission_days }} days</div>
+                            </div>
+
+                            {{-- Show Expenses Total --}}
+                            <div class="row mt-5 align-items-center">
+                                <div class="col-2"><strong>Total: </strong></div>
+                                <div class="col-2">
+                                    <input type="number" class="form-control" name="total_reimbursement"
+                                        value="{{ $mission_days * $mission->user->group->daily_allowance }}" required>
+                                </div>
+                                <div class="col-1">DH</div>
+                            </div>
+                        @endif
 
                         {{-- Show Expenses Comment --}}
                         <div class="row mt-5 align-items-center">

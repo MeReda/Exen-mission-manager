@@ -23,6 +23,11 @@
                             <input type="number" class="form-control" name="percentage" required
                                 value="{{ $group->percentage }}">
                         </div>
+                        <div class="form-group mt-3">
+                            <label for="daily_allowance">Daily Allowance DH:</label>
+                            <input type="number" class="form-control" name="daily_allowance" required
+                                value="{{ $group->daily_allowance }}">
+                        </div>
                     </div>
 
                     <div class="modal-footer">

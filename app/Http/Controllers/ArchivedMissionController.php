@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Mission;
+use App\Models\Mission_request;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -17,6 +18,9 @@ class ArchivedMissionController extends Controller
     {
         $archive = Mission::onlyTrashed()->paginate(10);
 
+        // get pending mission requests count
+        $mission_requests_count = Mission_request::where('status', 'pending')->count();
+
         // Get logged in user
         $admin = auth()->user();
 
@@ -25,7 +29,12 @@ class ArchivedMissionController extends Controller
         $text = "Are you sure you want to delete?";
         confirmDelete($title, $text);
 
-        return view('dashboard.archive', ['active' => 'archive', 'admin' => $admin,  'archive' => $archive]);
+        return view('dashboard.archive', [
+            'active' => 'archive',
+            'admin' => $admin,
+            'mission_requests_count' => $mission_requests_count,
+            'archive' => $archive
+        ]);
     }
 
     public function restore($id)

@@ -18,6 +18,19 @@
                 <a href="{{ route('dashboard.mission.index') }}" class="nav-link text-black w-100">Missions</a>
             </li>
             <li
+                class="nav-item p-1 ps-3 d-flex gap-2 align-items-center rounded sidebar-menu-button {{ $active === 'request' ? 'active' : '' }}">
+                <i class="fa-solid fa-circle-question"></i>
+                <a href="{{ route('dashboard.mission.requests') }}" class="nav-link text-black w-100 position-relative">
+                    Mission Requests
+                    @if ($mission_requests_count > 0)
+                        <span
+                            class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
+                            <span class="visually-hidden">New alerts</span>
+                        </span>
+                    @endif
+                </a>
+            </li>
+            <li
                 class="nav-item p-1 px-3 d-flex gap-2 align-items-center rounded sidebar-menu-button {{ $active === 'archive' ? 'active' : '' }}">
                 <i class="fa-solid fa-archive"></i>
                 <a href="{{ route('dashboard.archive.index') }}" class="nav-link text-black w-100">Archive</a>

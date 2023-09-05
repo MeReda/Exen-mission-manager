@@ -16,12 +16,25 @@
                     </div>
                     <div class="form-group mt-3">
                         <label for="percentage">Percentage %:</label>
-                        <input type="number" class="form-control" name="percentage" required>
+                        <input type="number" class="form-control" name="percentage" min="0" max="100"
+                            required>
                     </div>
-                    {{-- show percentage error message --}}
-                    @error('percentage')
-                        <div class="alert alert-danger mt-3">{{ $message }}</div>
-                    @enderror
+                    <div class="form-group mt-3">
+                        <label for="daily_allowance">Daily allowance DH:</label>
+                        <input type="number" class="form-control" name="daily_allowance" min="0" required>
+                    </div>
+
+                    {{-- Show errors --}}
+                    @if ($errors->any())
+                        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+                        <script>
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: '{{ $errors->first() }}'
+                            });
+                        </script>
+                    @endif
 
                 </div>
 

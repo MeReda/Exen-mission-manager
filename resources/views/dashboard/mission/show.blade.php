@@ -18,10 +18,26 @@
                     <p><strong>Date:</strong> {{ $mission->date }}</p>
                     <p><strong>Start Date:</strong> {{ $mission->start_date }}</p>
                     <p><strong>End Date:</strong> {{ $mission->end_date }}</p>
-                    <p><strong>Companion:</strong> {{ $mission->companion }}</p>
-                    <p><strong>Budget:</strong> {{ $mission->budget }} DH</p>
+                    <p><strong>Companion:</strong>
+                        @if ($mission->companion != null)
+                            {{ $mission->companion }}
+                        @else
+                            not defined
+                        @endif
+                    </p>
+                    <p><strong>Budget: </strong>
+                        @if ($mission->budget)
+                            {{ $mission->budget }} DH
+                        @else
+                            not defined
+                        @endif
+                    </p>
                     <p><strong>State:</strong> {{ $mission->state }}</p>
-                    <p><strong>Total Reimbursement:</strong> {{ $mission->total_reimbursement }} DH</p>
+
+                    @if ($mission->total_reimbursement != null)
+                        <p><strong>Total Reimbursement:</strong> {{ $mission->total_reimbursement }} DH</p>
+                    @endif
+
                     <p><strong>Comment: </strong>
                         @if ($mission->comment != null)
                             {{ $mission->comment }}
@@ -29,13 +45,17 @@
                             No comment
                         @endif
                     </p>
-                    <p>
-                        <strong>Expenses: </strong>
-                        <button type="button" class="btn btn-sm btn-info text-white ms-2" data-bs-toggle="modal"
-                            data-bs-target="#missionExpensesModal">
-                            Show Expenses
-                        </button>
-                    </p>
+                    @if ($mission->expenses->count() != 0)
+                        <p>
+                            <strong>Expenses: </strong>
+                            <button type="button" class="btn btn-sm btn-info text-white ms-2" data-bs-toggle="modal"
+                                data-bs-target="#missionExpensesModal{{ $mission->id }}">
+                                Show Expenses
+                            </button>
+                        </p>
+                    @endif
+
+                    <p><strong>Reimbursement State:</strong> {{ $mission->reimbursement_state }}</p>
 
                 </div>
                 <div class="modal-footer">
@@ -46,8 +66,8 @@
     </div>
 
     {{-- Mission Expenses Modal --}}
-    <div class="modal fade" id="missionExpensesModal" tabindex="-1" aria-labelledby="missionExpensesModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="missionExpensesModal{{ $mission->id }}" tabindex="-1"
+        aria-labelledby="missionExpensesModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
@@ -87,10 +107,12 @@
                     </div>
 
                     {{-- Show group percentage --}}
-                    <div class="row mt-5 align-items-center">
-                        <div class="col-4"><strong>Group percentage: </strong></div>
-                        <div class="col">{{ $mission->user->group->percentage }} %</div>
-                    </div>
+                    @if ($mission->user->group != null)
+                        <div class="row mt-5 align-items-center">
+                            <div class="col-4"><strong>Group percentage: </strong></div>
+                            <div class="col">{{ $mission->user->group->percentage }} %</div>
+                        </div>
+                    @endif
 
                     {{-- Show Expenses Comment --}}
                     <div class="row mt-5 align-items-center">

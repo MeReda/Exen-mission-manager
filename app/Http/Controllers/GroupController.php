@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Group;
+use App\Models\Mission_request;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -17,6 +18,9 @@ class GroupController extends Controller
     {
         $groups = Group::paginate(10);
 
+        // get pending mission requests count
+        $mission_requests_count = Mission_request::where('status', 'pending')->count();
+
         // Get logged in user
         $admin = auth()->user();
 
@@ -25,7 +29,12 @@ class GroupController extends Controller
         $text = 'Are you sure you want to delete this group?';
         confirmDelete($title, $text);
 
-        return view('dashboard.group.index', ['active' => 'group', 'admin' => $admin,  'groups' => $groups]);
+        return view('dashboard.group.index', [
+            'active' => 'group',
+            'admin' => $admin,
+            'mission_requests_count' => $mission_requests_count,
+            'groups' => $groups
+        ]);
     }
 
     /**
@@ -49,13 +58,15 @@ class GroupController extends Controller
         // Validate data
         $request->validate([
             'name' => 'required|unique:groups|max:255',
-            'percentage' => 'required|numeric|min:0|max:100'
+            'percentage' => 'required|numeric|min:0|max:100',
+            'daily_allowance' => 'required|numeric|min:0',
         ]);
 
         // Create new group
         $group = new Group;
         $group->name = $request->name;
         $group->percentage = $request->percentage;
+        $group->daily_allowance = $request->daily_allowance;
         $group->save();
 
         // Show success toast alert
@@ -99,12 +110,14 @@ class GroupController extends Controller
         // Validate data
         $request->validate([
             'name' => 'required|max:255|unique:groups,name,' . $group->id,
-            'percentage' => 'required|numeric|min:0|max:100'
+            'percentage' => 'required|numeric|min:0|max:100',
+            'daily_allowance' => 'required|numeric|min:0',
         ]);
 
         // Update group
         $group->name = $request->name;
         $group->percentage = $request->percentage;
+        $group->daily_allowance = $request->daily_allowance;
         $group->save();
 
         // Show success toast alert

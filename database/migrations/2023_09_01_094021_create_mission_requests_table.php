@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('missions', function (Blueprint $table) {
+        Schema::create('mission_requests', function (Blueprint $table) {
             $table->id();
             $table->string("name");
             $table->string("object");
@@ -23,13 +23,8 @@ return new class extends Migration
             $table->date('start_date');
             $table->date('end_date');
             $table->string("companion")->nullable();
-            $table->decimal("budget")->nullable();
-            $table->enum('state', ['incomplete', 'complete', 'approved'])->default('incomplete');
-            $table->string('comment')->nullable();
-            $table->decimal('total_reimbursement')->nullable();
-            $table->enum('reimbursement_state', ['not paid', 'paid'])->default('not paid');
+            $table->enum('status', ['pending', 'accepted', 'rejected'])->default('pending');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -41,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('missions');
+        Schema::dropIfExists('mission_requests');
     }
 };

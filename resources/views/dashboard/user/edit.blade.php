@@ -44,14 +44,15 @@
                         </div>
 
                         <div class="form-user">
-                            <label for="name">Group ID:</label>
+                            <label for="name">Group:</label>
 
-                            <select name="group_id" class="form-control" required>
-                                <option value="" selected disabled>Select Group ID</option>
+                            <select name="group_id" class="form-select" required>
+                                <option value="" selected disabled>Select Group</option>
                                 @foreach ($groups as $group)
                                     <option value="{{ $group->id }}"
                                         @if ($user->group_id == $group->id) selected @endif>
-                                        {{ $group->id }} - {{ $group->name }}</option>
+                                        {{ $group->name }}
+                                    </option>
                                 @endforeach
                             </select>
                         </div>

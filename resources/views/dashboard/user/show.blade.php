@@ -24,7 +24,9 @@
                     <p><strong>missions:</strong>
                     <ul>
                         @foreach ($user->missions as $mission)
-                            <li>{{ $mission->name }}</li>
+                            <li>
+                                <a href="{{ route('dashboard.mission.show', $mission->id) }}">{{ $mission->name }}</a>
+                            </li>
                         @endforeach
                     </ul>
                     </p>

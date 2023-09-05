@@ -7,6 +7,11 @@
             Add Expense
         </button>
     @endif
+    @if ($mission->reimbursement_state != 'paid')
+        <a class="btn btn-secondary float-end me-3" href="{{ route('client.printReimbursement', $mission->id) }}">Print
+            Reimbursement
+            Request</a>
+    @endif
 
     <table class="table align-items-center text-center">
         <thead>

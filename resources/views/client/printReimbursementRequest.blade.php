@@ -17,9 +17,7 @@
     <p><strong>Object:</strong> {{ $mission->object }}</p>
 
 
-    @if ($mission->expenses->count() == 0)
-        <p class="text-center">No expenses</p>
-    @else
+    @if ($mission->expenses->isNotEmpty())
         <h2 class="mt-5">Expenses</h2>
         <table class="table table-bordered">
             <thead>
@@ -51,7 +49,26 @@
                 </tr>
             </tfoot>
         </table>
+
+        {{-- show user group bonus percentage --}}
+        <p><strong>Bonus Percentage: </strong> {{ $mission->user->group->percentage }} %</p>
+    @else
+        {{-- show mission total days count --}}
+        @php
+            $start_date = Carbon\Carbon::parse($mission->start_date);
+            $end_date = Carbon\Carbon::parse($mission->end_date);
+            
+            $totalDays = $end_date->diffInDays($start_date);
+        @endphp
+        <p><strong>Mission total days: </strong> {{ $totalDays }} days</p>
+
+        {{-- show user group daily allowance --}}
+        <p><strong>Daily Allowance: </strong> {{ $mission->user->group->daily_allowance }} DH</p>
+
+
     @endif
+    {{-- show total reimbursement --}}
+    <p><strong>Total Reimbursement: </strong> {{ $mission->total_reimbursement }} DH</p>
 
 
     <p class="mt-5"><strong>Signature:</strong> {{ $mission->user->fname }} {{ $mission->user->lname }}</p>

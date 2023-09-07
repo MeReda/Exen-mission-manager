@@ -36,9 +36,9 @@
             <p class="m-0">{{ $mission_request->date }}</p>
         </a>
     @empty
-        <div class="mb-3 mission-card">
+        <div class="mb-3 mission-card opacity-50">
             <div class="card-body">
-                <h5 class="card-title text-center">no mission requests</h5>
+                <h5 class="card-title text-center p-3 text-secondary">no mission requests</h5>
             </div>
         </div>
     @endforelse

@@ -6,6 +6,8 @@
     </div>
 
     <div class="bg-white p-5">
+        <p><strong>ID:</strong> {{ $mission->id }}</p>
+
         <p><strong>Name:</strong> {{ $mission->name }}</p>
 
         <p><strong>Object:</strong> {{ $mission->object }}</p>
@@ -36,6 +38,8 @@
 
         <p><strong>Mission State:</strong> {{ $mission->state }}</p>
 
+        <p><strong>Reimbursement State:</strong> {{ $mission->reimbursement_state }}</p>
+
         @if ($mission->total_reimbursement)
             <p><strong>Total Reimbursement:</strong> {{ $mission->total_reimbursement }} DH</p>
         @endif
@@ -43,5 +47,6 @@
         @if ($mission->comment)
             <p><strong>Comment:</strong> {{ $mission->comment }}</p>
         @endif
+
     </div>
 @endsection

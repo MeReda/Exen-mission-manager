@@ -149,12 +149,21 @@ class MissionController extends Controller
      */
     public function show($id)
     {
+
+        // get pending mission requests count
+        $mission_requests_count = Mission_request::where('status', 'pending')->count();
+
         // Get logged in user
         $admin = auth()->user();
 
         $mission = Mission::find($id);
 
-        return view('dashboard.mission.missionInfo', ['mission' => $mission, 'admin' => $admin, 'active' => 'mission']);
+        return view('dashboard.mission.missionInfo', [
+            'mission' => $mission,
+            'admin' => $admin,
+            'mission_requests_count' => $mission_requests_count,
+            'active' => 'mission'
+        ]);
     }
 
     /**
